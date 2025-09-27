@@ -518,8 +518,8 @@ function openArticleBySlug(slug) {
           )
         : `<div class="preview-box"><div class="preview-note">Tidak ada media</div></div>`
     }
-    ${a.description ? `<p class="article-desc">${a.description}</p>` : ""}
-    <div class="article-prose">${(a.content || "").replace(/\n/g,"<br>")}</div>
+    ${a.description ? `<p class="article-desc">${a.description.replace(/\n/g,"<br>")}</p>` : ""}
+    <div class="article-prose">${linkify(a.content)}</div>
     <a href="#" class="back-link" onclick="goHome();return false;">← Kembali ke Beranda</a>
   `;
 
@@ -535,6 +535,13 @@ function openArticleBySlug(slug) {
 
 	// tampilkan kebab header
 	showArticleKebab(true);
+}
+
+function linkify(text) {
+  if (!text) return "";
+  return text
+    .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
+    .replace(/\n/g, "<br>");
 }
 
 // Helper untuk memotong teks panjang → tambahkan "…" di akhir
