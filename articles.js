@@ -24,14 +24,14 @@ const defaultArticles = [
     title: "SCRIPT SKIN BEATRIX FMVP - Sky Force Maverick",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: "🗂️ Download Script :\nReplace Default :\nhttps://sfile.mobi/bA6trIbp4W7\nReplace Elite :\nhttps://sfile.mobi/9r8sgEKQ5a3\nReplace Special :\nhttps://sfile.mobi/3mooVJ0PiEr\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
-    youtubeUrl: "https://youtu.be/aHQf-m55wlU",
+    youtubeUrl: "https://youtu.be/FCJuOA1nKz4",
     categories: ["Fmvp"]
   },
   {
     title: "SCRIPT SKIN JOY CHAMPION - ONIC PH",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: "🗂️ Download Script :\nReplace Default :\nhttps://sfile.mobi/94Ys14OLhCq\nReplace Basic :\nhttps://sfile.mobi/59cpQQFNwkq\nReplace Elite :\nhttps://sfile.mobi/4FEpAT74BGl\nReplace Starlight :\nhttps://sfile.mobi/aKosYsAs6s3\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
-    youtubeUrl: "https://youtu.be/aHQf-m55wlU",
+    youtubeUrl: "https://youtu.be/0jKheOEBdrk",
     categories: ["Champion"]
   },
   {
