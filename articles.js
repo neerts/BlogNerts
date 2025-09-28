@@ -3,21 +3,21 @@ const defaultArticles = [
     title: "SCRIPT SKIN ANGELA KINSHIN - STRINGS OF FATE",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: "🗂️ Download Script :\nReplace Default :\nhttps://sfile.mobi/a9ssI7p54IE\nReplace Basic :\nhttps://sfile.mobi/5vmq9qaKZOp\nReplace Summer :\nhttps://sfile.mobi/37CoQd34zS3\nReplace Halloween :\nhttps://sfile.mobi/aD0sZjn6RUK\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
-    youtubeUrl: "https://youtu.be/aHQf-m55wlU",
+    youtubeUrl: "https://youtu.be/9hnSfw_Gkas",
     categories: ["Kinshin"]
   },
   {
     title: "SCRIPT SKIN KARRIE KINSHIN - Breath Of Naraka",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: "🗂️ Download Script :\nReplace Default :\nhttps://sfile.mobi/94Ys8tgAusZ\nReplace Basic :\nhttps://sfile.mobi/5vmqaiKxUWz\nReplace Elite :\nhttps://sfile.mobi/a24sFCNlbqP\nReplace Halloween :\nhttps://sfile.mobi/6dGqziAb9St\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
-    youtubeUrl: "https://youtu.be/aHQf-m55wlU",
+    youtubeUrl: "https://youtu.be/k6gP2a-8QLI",
     categories: ["Kinshin"]
   },
   {
     title: "SCRIPT SKIN LANCELOT KINSHIN - Guardian Of The Shine",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: "🗂️ Download Script :\nReplace Default :\nhttps://sfile.mobi/51OpUH1kX6E\nReplace Basic :\nhttps://sfile.mobi/aRMt8Htx9Ci\nReplace Elite :\nhttps://sfile.mobi/4N2pMT9Jtur\nReplace Epic :\nhttps://sfile.mobi/4UqpS1uQ52F\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
-    youtubeUrl: "https://youtu.be/aHQf-m55wlU",
+    youtubeUrl: "https://youtu.be/Oaonk9K2HbA",
     categories: ["Kinshin"]
   },
   {
