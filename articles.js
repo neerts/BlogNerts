@@ -9,7 +9,7 @@ const defaultArticles = [
   {
     title: "SCRIPT SKIN PHARSA NEOBEASTS - NEOBEASTS PHARSA",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
-    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/Pp0Lw\nReplace Default Logo :\nhttps://sfl.gl/AHlxIYR\nReplace Basic :\nhttps://sfl.gl/SQVF8\nReplace Basic Logo :\nhttps://sfl.gl/FiQR7\nReplace Elite :\https://sfl.gl/wJTIbzEB\nReplace Season :\nhttps://sfl.gl/YEXDeiq\nReplace Special :\nhttps://sfl.gl/xYTXM\nReplace Starlight :\nhttps://sfl.gl/PiQtc\nReplace Epic :\nhttps://sfl.gl/p6pLOb\nReplace Indigo Aviatrix :\nhttps://sfl.gl/ioAfuI\nReplace Collector :\nhttps://sfl.gl/d1E7n5\nReplace Msc :\nhttps://sfl.gl/8FcGRx\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
+    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/Pp0Lw\nReplace Default Logo :\nhttps://sfl.gl/AHlxIYR\nReplace Basic :\nhttps://sfl.gl/SQVF8\nReplace Basic Logo :\nhttps://sfl.gl/FiQR7\nReplace Elite :\nhttps://sfl.gl/wJTIbzEB\nReplace Season :\nhttps://sfl.gl/YEXDeiq\nReplace Special :\nhttps://sfl.gl/xYTXM\nReplace Starlight :\nhttps://sfl.gl/PiQtc\nReplace Epic :\nhttps://sfl.gl/p6pLOb\nReplace Indigo Aviatrix :\nhttps://sfl.gl/ioAfuI\nReplace Collector :\nhttps://sfl.gl/d1E7n5\nReplace Msc :\nhttps://sfl.gl/8FcGRx\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
     youtubeUrl: "https://youtu.be/7wiSYCL_x_I",
     categories: ["Neobeasts"]
   },
@@ -23,8 +23,8 @@ const defaultArticles = [
   {
     title: "SCRIPT SKIN LYLIA NEOBEASTS - NEOBEASTS LYLIA",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
-    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/30OXFx4\nReplace Default Logo :\nhttps://sfl.gl/gjiS3mW\nReplace Basic :\nhttps://sfl.gl/Nek1R8ba\nReplace Basic Logo :\https://sfl.gl/Y3P9z\nReplace Elite :\nhttps://sfl.gl/c3hgDQqG\nReplace Halloween :\nhttps://sfl.gl/ICeuj\nReplace Special :\nhttps://sfl.gl/1gfYSfl\nReplace Starlight :\nhttps://sfl.gl/xQHVXn\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
-    youtubeUrl: "https://youtu.be/ji0-ObchVps",
+    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/30OXFx4\nReplace Default Logo :\nhttps://sfl.gl/gjiS3mW\nReplace Basic :\nhttps://sfl.gl/Nek1R8ba\nReplace Basic Logo :\nhttps://sfl.gl/Y3P9z\nReplace Elite :\nhttps://sfl.gl/c3hgDQqG\nReplace Halloween :\nhttps://sfl.gl/ICeuj\nReplace Special :\nhttps://sfl.gl/1gfYSfl\nReplace Starlight :\nhttps://sfl.gl/xQHVXn\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
+    youtubeUrl: "https://youtu.be/BzzD5OIM-M4?si=lMhvF5jApYrA9QS8",
     categories: ["Neobeasts"]
   },
   {
