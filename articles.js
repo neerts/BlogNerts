@@ -1,9 +1,44 @@
 const defaultArticles = [
   {
+    title: "SCRIPT SKIN BRODY NEOBEASTS - NEOBEASTS BRODY",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/HgA9\nReplace Default Logo :\nhttps://sfl.gl/damdaH\nReplace Basic :\nhttps://sfl.gl/83yhPDd\nReplace Basic Logo :\nhttps://sfl.gl/2U8NFoQd\nReplace Starlight :\nhttps://sfl.gl/r6DQE\nReplace Mpl :\nhttps://sfl.gl/I3CN\nReplace Champion :\nhttps://sfl.gl/P8JRuKhT\nReplace Stun :\nhttps://sfl.gl/A6RR2\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
+    youtubeUrl: "https://youtu.be/uqTXAopgu_4",
+    categories: ["Neobeasts"]
+  },
+  {
+    title: "SCRIPT SKIN PHARSA NEOBEASTS - NEOBEASTS PHARSA",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/Pp0Lw\nReplace Default Logo :\nhttps://sfl.gl/AHlxIYR\nReplace Basic :\nhttps://sfl.gl/SQVF8\nReplace Basic Logo :\nhttps://sfl.gl/FiQR7\nReplace Elite :\https://sfl.gl/wJTIbzEB\nReplace Season :\nhttps://sfl.gl/YEXDeiq\nReplace Special :\nhttps://sfl.gl/xYTXM\nReplace Starlight :\nhttps://sfl.gl/PiQtc\nReplace Epic :\nhttps://sfl.gl/p6pLOb\nReplace Indigo Aviatrix :\nhttps://sfl.gl/ioAfuI\nReplace Collector :\nhttps://sfl.gl/d1E7n5\nReplace Msc :\nhttps://sfl.gl/8FcGRx\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
+    youtubeUrl: "https://youtu.be/7wiSYCL_x_I",
+    categories: ["Neobeasts"]
+  },
+  {
+    title: "SCRIPT SKIN LING NEOBEASTS - NEOBEASTS LING",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/6pSYK\nReplace Default Logo :\nhttps://sfl.gl/XjQvaxiF\nReplace Basic :\nhttps://sfl.gl/NfASg\nReplace Basic Logo :\nhttps://sfl.gl/ai6I9M\nReplace Special :\nhttps://sfl.gl/5SwB79\nReplace Starlight :\nhttps://sfl.gl/LYoBXqz0\nReplace M Word :\nhttps://sfl.gl/1vBh6S\nReplace Dragon Tamer :\nhttps://sfl.gl/NSBAWgz\nReplace Collector :\nhttps://sfl.gl/CzAk\nReplace Kung Fu Panda :\nhttps://sfl.gl/NBD1AT\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
+    youtubeUrl: "https://youtu.be/ji0-ObchVps",
+    categories: ["Neobeasts"]
+  },
+  {
+    title: "SCRIPT SKIN LYLIA NEOBEASTS - NEOBEASTS LYLIA",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/30OXFx4\nReplace Default Logo :\nhttps://sfl.gl/gjiS3mW\nReplace Basic :\nhttps://sfl.gl/Nek1R8ba\nReplace Basic Logo :\https://sfl.gl/Y3P9z\nReplace Elite :\nhttps://sfl.gl/c3hgDQqG\nReplace Halloween :\nhttps://sfl.gl/ICeuj\nReplace Special :\nhttps://sfl.gl/1gfYSfl\nReplace Starlight :\nhttps://sfl.gl/xQHVXn\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
+    youtubeUrl: "https://youtu.be/ji0-ObchVps",
+    categories: ["Neobeasts"]
+  },
+  {
+    title: "SCRIPT SKIN FREDRINN NEOBEASTS - NEOBEASTS FREDRINN",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/usgLuMy6\nReplace Basic :\nhttps://sfl.gl/5Xypyiy\nReplace Elite :\nhttps://sfl.gl/eplYD\nReplace Sparkle :\nhttps://sfl.gl/IU1xuSc\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
+    youtubeUrl: "https://youtu.be/_DSDagl0G1Y",
+    categories: ["Neobeasts"]
+  },
+  {
     title: "SCRIPT SKIN IXIA METRO ZERO - INVOKER'S COMMAND",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/OnorDhY8\nReplace Basic :\nhttps://sfl.gl/gxkr2\nReplace Starlight :\nhttps://sfl.gl/dmaAxWY\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
-    youtubeUrl: "https://youtu.be/xLNxk3iQ8As",
+    youtubeUrl: "https://youtu.be/BzzD5OIM-M4",
     categories: ["Metro Zero"]
   },
   {
