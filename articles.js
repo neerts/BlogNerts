@@ -1,5 +1,26 @@
 const defaultArticles = [
   {
+    title: "SCRIPT SKIN IXIA METRO ZERO - INVOKER'S COMMAND",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/OnorDhY8\nReplace Basic :\nhttps://sfl.gl/gxkr2\nReplace Starlight :\nhttps://sfl.gl/dmaAxWY\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
+    youtubeUrl: "https://youtu.be/xLNxk3iQ8As",
+    categories: ["Metro Zero"]
+  },
+  {
+    title: "SCRIPT SKIN ROGER METRO ZERO - INVOKER'S RESTRAINTS",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/kiK7LH3W\nReplace Basic :\nhttps://sfl.gl/uUpk\nReplace Epic Phantom :\nhttps://sfl.gl/gFeH\nReplace Epic Cyborg :\nhttps://sfl.gl/Qfpinp\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
+    youtubeUrl: "https://youtu.be/hrt_oB1pN7E",
+    categories: ["Metro Zero"]
+  },
+  {
+    title: "SCRIPT SKIN X'BORG METRO ZERO - INVOKER'S FLAME",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/jBRb1\nReplace Basic :\nhttps://sfl.gl/pO3sNK8\nReplace Elite :\nhttps://sfl.gl/3GkhsL5\nReplace Starlight :\nhttps://sfl.gl/xppPmPd\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
+    youtubeUrl: "https://youtu.be/wUAgNIsTPTg",
+    categories: ["Metro Zero"]
+  },
+  {
     title: "SCRIPT SKIN ANGELA KINSHIN - STRINGS OF FATE",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: "🗂️ Download Script :\nReplace Default :\nhttps://sfl.gl/vjLu\nReplace Basic :\nhttps://sfl.gl/ZVOjqH\nReplace Summer :\nhttps://sfl.gl/pamKot\nReplace Halloween :\nhttps://sfl.gl/UJHRNTs\n\n⚠️ Cara Memasang\nLink\nUpdate Artikel 27/9/25",
