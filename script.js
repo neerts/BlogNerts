@@ -509,9 +509,6 @@ function openArticleBySlug(slug) {
                   allowfullscreen>
                 </iframe>
               </div>
-              <a href="${a.youtubeUrl}" target="_blank" rel="noopener" class="yt-continue">
-                Tonton di YouTube
-              </a>
             `;
             })()
             : `<div class="preview-box"><span class="preview-media"><img src="${a.image}" alt="${a.title}"></span></div>`
