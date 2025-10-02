@@ -1251,16 +1251,6 @@ body.light-mode .footer-social .soc:focus-visible {
 .close-results:hover{ background: rgba(255,255,255,.08); }
 body.light-mode .close-results:hover{ background: rgba(0,0,0,.06); }
 
-.yt-continue {
-  display: block;
-  margin: 6px auto 12px;
-  width: fit-content;
-  color: #1a73e8;
-  font-weight: 500;
-  text-decoration: none;
-  text-align: center;
-}
-
 .yt-continue:hover {
   text-decoration: underline;
 }
