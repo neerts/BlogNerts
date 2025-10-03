@@ -13,7 +13,7 @@ const defaultArticles = [
   ⚠️ Cara Memasang
   Link
   Update Artikel 27/9/25`,
-    youtubeUrl: "https://youtu.be/ENm3usXPEjo",
+    youtubeUrl: "https://youtu.be/TUwz7iUi8ik",
     categories: ["Anniversary"]
   },
   {
@@ -30,7 +30,7 @@ const defaultArticles = [
   ⚠️ Cara Memasang
   Link
   Update Artikel 27/9/25`,
-    youtubeUrl: "https://youtu.be/TUwz7iUi8ik",
+    youtubeUrl: "https://youtu.be/ENm3usXPEjo",
     categories: ["Anniversary"]
   },
   {
