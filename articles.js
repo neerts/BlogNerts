@@ -1,5 +1,58 @@
 const defaultArticles = [
   {
+    title: "SCRIPT SKIN ZHUXIN ANNIVERSARY - P.ACE ZHUXIN",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/5kYm
+  Replace Elite :
+  https://sfl.gl/rjrcD
+  Replace Starlight :
+  https://sfl.gl/YwkcMmz
+  
+  ⚠️ Cara Memasang
+  Link
+  Update Artikel 27/9/25`,
+    youtubeUrl: "https://youtu.be/ENm3usXPEjo",
+    categories: ["Anniversary"]
+  },
+  {
+    title: "SCRIPT SKIN CICI ANNIVERSARY - P.ACE CICI",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/pScyIE
+  Replace Basic :
+  https://sfl.gl/Xy7P
+  Replace Starlight :
+  https://sfl.gl/i7A6TO
+  
+  ⚠️ Cara Memasang
+  Link
+  Update Artikel 27/9/25`,
+    youtubeUrl: "https://youtu.be/TUwz7iUi8ik",
+    categories: ["Anniversary"]
+  },
+  {
+    title: "SCRIPT SKIN FANNY ANNIVERSARY - P.ACE FANNY",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/wEqNI
+  Replace Elite :
+  https://sfl.gl/T3MWfE
+  Replace Summer :
+  https://sfl.gl/cbFehQk5
+  Replace Valentine :
+  https://sfl.gl/FHa7ljM
+
+  ⚠️ Cara Memasang
+  Link
+  Update Artikel 27/9/25`,
+    youtubeUrl: "https://youtu.be/jJspODPYAs0",
+    categories: ["Anniversary"]
+  },
+  {
     title: "SCRIPT SKIN BRODY NEOBEASTS - NEOBEASTS BRODY",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: `🗂️ Download Script :
