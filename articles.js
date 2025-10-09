@@ -1,5 +1,52 @@
 const defaultArticles = [
   {
+    title: "SCRIPT SKIN VEXANA ASPIRANT - TWILIGHT STAR",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/NfdEf
+  Replace Basic :
+  https://sfl.gl/js6BGR
+  Replace Season :
+  https://sfl.gl/rjrcD
+  Replace Starlight :
+  https://sfl.gl/rGoTjFr7
+  Replace Epic :
+  https://sfl.gl/uMkoU
+  
+  ⚠️ Cara Memasang
+  Link
+  Update Artikel 9/10/25`,
+    youtubeUrl: "https://youtu.be/-hFmUaZxIA8",
+    categories: ["Aspirant"]
+  },
+  {
+    title: "SCRIPT SKIN GUINEVERE ASPIRANT - DAYBREAK HALO",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/9TvNn
+  Replace Basic :
+  https://sfl.gl/O0DlH
+  Replace Elite :
+  https://sfl.gl/qawJu
+  Replace Special Sakura :
+  https://sfl.gl/docHLN
+  Replace Summer :
+  https://sfl.gl/TIqPmFq
+  Replace Starlight :
+  https://sfl.gl/2Azkp
+  Replace Luckybox :
+  https://sfl.gl/ZxyqT
+  
+  
+  ⚠️ Cara Memasang
+  Link
+  Update Artikel 9/10/25`,
+    youtubeUrl: "https://youtu.be/109P5gCIRqs",
+    categories: ["Aspirant"]
+  },
+  {
     title: "SCRIPT SKIN ZHUXIN ANNIVERSARY - P.ACE ZHUXIN",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: `🗂️ Download Script :
