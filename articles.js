@@ -37,7 +37,7 @@ const defaultArticles = [
   ⚠️ Cara Memasang
   Link
   Update Artikel 12/10/25`,
-    youtubeUrl: "https://youtu.be/-hFmUaZxIA8",
+    youtubeUrl: "https://youtu.be/EFYnbb4GfB8",
     categories: ["Aspirant"]
   },
   {
@@ -74,7 +74,7 @@ const defaultArticles = [
   ⚠️ Cara Memasang
   Link
   Update Artikel 12/10/25`,
-    youtubeUrl: "https://youtu.be/-hFmUaZxIA8",
+    youtubeUrl: "https://youtu.be/xKgIYE_-4ZY",
     categories: ["Aspirant"]
   },
 
