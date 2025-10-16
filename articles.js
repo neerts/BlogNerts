@@ -1,5 +1,84 @@
 const defaultArticles = [
   {
+    title: "SCRIPT SKIN LESLEY ASPIRANT - DEADEYE SPECTRE",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/D4z5zghZ
+  Replace Default Logo :
+  https://sfl.gl/rbKS32A
+  Replace Basic :
+  https://sfl.gl/8sY6WMl
+  Replace Basic Logo :
+  https://sfl.gl/WAzKXR6H
+  Replace Elite :
+  https://sfl.gl/5eH0cmQ
+  Replace Special :
+  https://sfl.gl/WOTS7A82
+  Replace Starlight :
+  https://sfl.gl/lUo5nA
+  Replace Starlight Annual :
+  https://sfl.gl/QOrX6rYK
+  Replace Luckybox :
+  https://sfl.gl/amVESu
+  Replace Valentine :
+  https://sfl.gl/wWY6kfQ4
+  Replace Meowskin :
+  https://sfl.gl/1d7gv
+  Replace Legend :
+  https://sfl.gl/23q2C
+  Replace Covenant :
+  https://sfl.gl/AOZF
+  Replace Collector :
+  https://sfl.gl/ORFG
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+  
+  ⚠️ Cara Memasang
+  Link
+  Update Artikel 12/10/25`,
+    youtubeUrl: "https://youtu.be/-hFmUaZxIA8",
+    categories: ["Aspirant"]
+  },
+  {
+    title: "SCRIPT SKIN FANNY ASPIRANT - BLADE OF KIBOU",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/BSP5
+  Replace Default Logo :
+  https://sfl.gl/8ddZRrUA
+  Replace Season :
+  https://sfl.gl/Wk8IJ3c
+  Replace Elite :
+  https://sfl.gl/IPcX
+  Replace Summer :
+  https://sfl.gl/rPp4me
+  Replace Starlight :
+  https://sfl.gl/CXONevQ
+  Replace Valentine :
+  https://sfl.gl/yo5NBC6
+  Replace Christmas :
+  https://sfl.gl/DlOWf9
+  Replace Imperial :
+  https://sfl.gl/dcvoe6
+  Replace Imperial Logo :
+  https://sfl.gl/bfX2Q
+  Replace Lightborn :
+  https://sfl.gl/PCVb0yt
+  Replace Skylark :
+  https://sfl.gl/4qqMbX
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+  
+  ⚠️ Cara Memasang
+  Link
+  Update Artikel 12/10/25`,
+    youtubeUrl: "https://youtu.be/-hFmUaZxIA8",
+    categories: ["Aspirant"]
+  },
+
+  {
     title: "SCRIPT SKIN VEXANA ASPIRANT - TWILIGHT STAR",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: `🗂️ Download Script :
@@ -13,6 +92,8 @@ const defaultArticles = [
   https://sfl.gl/rGoTjFr7
   Replace Epic :
   https://sfl.gl/uMkoU
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
   
   ⚠️ Cara Memasang
   Link
@@ -39,6 +120,8 @@ const defaultArticles = [
   Replace Luckybox :
   https://sfl.gl/ZxyqT
   
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+
   
   ⚠️ Cara Memasang
   Link
@@ -57,6 +140,8 @@ const defaultArticles = [
   Replace Starlight :
   https://sfl.gl/YwkcMmz
   
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+  
   ⚠️ Cara Memasang
   Link
   Update Artikel 27/9/25`,
@@ -73,6 +158,8 @@ const defaultArticles = [
   https://sfl.gl/Xy7P
   Replace Starlight :
   https://sfl.gl/i7A6TO
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
   
   ⚠️ Cara Memasang
   Link
@@ -92,6 +179,8 @@ const defaultArticles = [
   https://sfl.gl/cbFehQk5
   Replace Valentine :
   https://sfl.gl/FHa7ljM
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -119,6 +208,8 @@ const defaultArticles = [
   https://sfl.gl/P8JRuKhT
   Replace Stun :
   https://sfl.gl/A6RR2
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -154,6 +245,8 @@ const defaultArticles = [
   https://sfl.gl/d1E7n5
   Replace Msc :
   https://sfl.gl/8FcGRx
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -185,6 +278,9 @@ const defaultArticles = [
   https://sfl.gl/CzAk
   Replace Kung Fu Panda :
   https://sfl.gl/NBD1AT
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+
 
   ⚠️ Cara Memasang
   Link
@@ -212,6 +308,8 @@ const defaultArticles = [
   https://sfl.gl/1gfYSfl
   Replace Starlight :
   https://sfl.gl/xQHVXn
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -231,6 +329,8 @@ const defaultArticles = [
   https://sfl.gl/eplYD
   Replace Sparkle :
   https://sfl.gl/IU1xuSc
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -248,6 +348,8 @@ const defaultArticles = [
   https://sfl.gl/gxkr2
   Replace Starlight :
   https://sfl.gl/dmaAxWY
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -267,6 +369,8 @@ const defaultArticles = [
   https://sfl.gl/gFeH
   Replace Epic Cyborg :
   https://sfl.gl/Qfpinp
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -286,6 +390,8 @@ const defaultArticles = [
   https://sfl.gl/3GkhsL5
   Replace Starlight :
   https://sfl.gl/xppPmPd
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -305,6 +411,8 @@ const defaultArticles = [
   https://sfl.gl/pamKot
   Replace Halloween :
   https://sfl.gl/UJHRNTs
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -324,6 +432,8 @@ const defaultArticles = [
   https://sfl.gl/rfScQ6I
   Replace Halloween :
   https://sfl.gl/H5dSMY6
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -343,6 +453,8 @@ const defaultArticles = [
   https://sfl.gl/sZEY
   Replace Epic :
   https://sfl.gl/arI8DFEB
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -360,6 +472,8 @@ const defaultArticles = [
   https://sfl.gl/1fGPd
   Replace Special :
   https://sfl.gl/MSEy20mQ
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -379,6 +493,8 @@ const defaultArticles = [
   https://sfl.gl/QJLuJCFl
   Replace Starlight :
   https://sfl.gl/oW16agbk
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -398,6 +514,8 @@ const defaultArticles = [
   https://sfl.gl/VC632a
   Replace Starlight :
   https://sfl.gl/ZtEYYpaT
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -413,6 +531,8 @@ const defaultArticles = [
   https://sfl.gl/zVhfG7U
   Replace Elite :
   https://sfl.gl/M8kW7MK
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -432,6 +552,8 @@ const defaultArticles = [
   https://sfl.gl/7iTbDytT
   Replace Special :
   https://sfl.gl/yMuAf
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
@@ -451,6 +573,8 @@ const defaultArticles = [
   https://sfl.gl/KzWZ
   Replace Starlight :
   https://sfl.gl/3xgjlG5
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
   Link
