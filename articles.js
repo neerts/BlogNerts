@@ -30,7 +30,7 @@ const defaultArticles = [
   
   ⚠️ Cara Memasang
   Link
-  Update Artikel 12/10/25`,
+  Update Artikel 17/10/25`,
     youtubeUrl: "https://youtu.be/sHELiBsNpLc",
     categories: ["Aspirant"]
   },
@@ -63,7 +63,7 @@ const defaultArticles = [
   
   ⚠️ Cara Memasang
   Link
-  Update Artikel 12/10/25`,
+  Update Artikel 17/10/25`,
     youtubeUrl: "https://youtu.be/vbDkBO8yRy8",
     categories: ["Aspirant"]
   },
@@ -92,7 +92,7 @@ const defaultArticles = [
   
   ⚠️ Cara Memasang
   Link
-  Update Artikel 12/10/25`,
+  Update Artikel 17/10/25`,
     youtubeUrl: "https://youtu.be/hSRMvRYlRkY",
     categories: ["Aspirant"]
   },
@@ -127,7 +127,7 @@ const defaultArticles = [
   
   ⚠️ Cara Memasang
   Link
-  Update Artikel 12/10/25`,
+  Update Artikel 17/10/25`,
     youtubeUrl: "https://youtu.be/TPWNpBQOi20",
     categories: ["Aspirant"]
   },
@@ -168,7 +168,7 @@ const defaultArticles = [
   
   ⚠️ Cara Memasang
   Link
-  Update Artikel 12/10/25`,
+  Update Artikel 16/10/25`,
     youtubeUrl: "https://youtu.be/EFYnbb4GfB8",
     categories: ["Aspirant"]
   },
@@ -205,7 +205,7 @@ const defaultArticles = [
   
   ⚠️ Cara Memasang
   Link
-  Update Artikel 12/10/25`,
+  Update Artikel 16/10/25`,
     youtubeUrl: "https://youtu.be/xKgIYE_-4ZY",
     categories: ["Aspirant"]
   },
