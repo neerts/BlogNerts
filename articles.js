@@ -1,5 +1,137 @@
 const defaultArticles = [
   {
+    title: "SCRIPT SKIN ANGELA ASPIRANT - CYBER CHERUBIN",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/XqFDg8vd
+  Replace Default Logo :
+  https://sfl.gl/3XEpcOT
+  Replace Basic :
+  https://sfl.gl/Cv1CTE
+  Replace Basic Logo :
+  https://sfl.gl/fxO5yu
+  Replace Annual :
+  https://sfl.gl/k9g26T
+  Replace Summer :
+  https://sfl.gl/wZSp
+  Replace Starlight :
+  https://sfl.gl/ubgC
+  Replace Sanrio :
+  https://sfl.gl/VB7MnK3
+  Replace Halloween :
+  https://sfl.gl/MYzU
+  Replace Venom :
+  https://sfl.gl/o8rh
+  Replace Collector :
+  https://sfl.gl/yhacOx9
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+  
+  ⚠️ Cara Memasang
+  Link
+  Update Artikel 12/10/25`,
+    youtubeUrl: "https://youtu.be/sHELiBsNpLc",
+    categories: ["Aspirant"]
+  },
+  {
+    title: "SCRIPT SKIN CHANG'E ASPIRANT - TECH TENSAI",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/ZG4T
+  Replace Default Logo :
+  https://sfl.gl/FoPYmoUG
+  Replace Basic :
+  https://sfl.gl/eU9wpNHl
+  Replace Basic Logo :
+  https://sfl.gl/9msR4tS
+  Replace Elite :
+  https://sfl.gl/Ila1Cz9j
+  Replace Special :
+  https://sfl.gl/U1s0k
+  Replace Starlight :
+  https://sfl.gl/5FmFyZp
+  Replace Lunar Fest :
+  https://sfl.gl/zFNyg
+  Replace Epic :
+  https://sfl.gl/6tyQU4
+  Replace Sanrio :
+  https://sfl.gl/jp2dqR6
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+  
+  ⚠️ Cara Memasang
+  Link
+  Update Artikel 12/10/25`,
+    youtubeUrl: "https://youtu.be/vbDkBO8yRy8",
+    categories: ["Aspirant"]
+  },
+  {
+    title: "SCRIPT SKIN LAYLA ASPIRANT - MISS HIKARI",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/ckQh
+  Replace Default Logo :
+  https://sfl.gl/kRDh9Ct
+  Replace Basic :
+  https://sfl.gl/rmFH
+  Replace Basic Logo :
+  https://sfl.gl/MKJFC
+  Replace Classic :
+  https://sfl.gl/dEuxW
+  Replace Classic Logo :
+  https://sfl.gl/rRclTUrg
+  Replace Old Starlight :
+  https://sfl.gl/Jq67yw
+  Replace Valentine :
+  https://sfl.gl/7kEKb0
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+  
+  ⚠️ Cara Memasang
+  Link
+  Update Artikel 12/10/25`,
+    youtubeUrl: "https://youtu.be/hSRMvRYlRkY",
+    categories: ["Aspirant"]
+  },
+  {
+    title: "SCRIPT SKIN RUBBY ASPIRANT - MECHA MAIDEN",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/I7Af
+  Replace Default Logo :
+  https://sfl.gl/vJTB
+  Replace Basic :
+  https://sfl.gl/NbqK7M
+  Replace Basic Logo :
+  https://sfl.gl/yk8CzH5
+  Replace Elite Butterfly :
+  https://sfl.gl/WzDtuAQ
+  Replace Elitr Edelweiss :
+  https://sfl.gl/qHimoKrq
+  Replace Golden Month Neon Edge :
+  https://sfl.gl/5Xgs6hW
+  Replace Golden Month Crescent :
+  https://sfl.gl/mGrT7
+  Replace Special :
+  https://sfl.gl/qxQY
+  Replace Starlight :
+  https://sfl.gl/cyjI5
+  Replace Luckybox :
+  https://sfl.gl/ORIZ5Bd
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+  
+  ⚠️ Cara Memasang
+  Link
+  Update Artikel 12/10/25`,
+    youtubeUrl: "https://youtu.be/TPWNpBQOi20",
+    categories: ["Aspirant"]
+  },
+  {
     title: "SCRIPT SKIN LESLEY ASPIRANT - DEADEYE SPECTRE",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: `🗂️ Download Script :
