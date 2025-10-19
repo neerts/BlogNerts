@@ -1,5 +1,139 @@
 const defaultArticles = [
   {
+    title: "SCRIPT SKIN FRANCO LEGEND - KING OF HELL",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/iXWwo1s
+  Replace Season :
+  https://sfl.gl/5Ooi7H
+  Replace Special :
+  https://sfl.gl/iN5UC6r
+  Replace Starlight :
+  https://sfl.gl/9qftkuHg
+  Replace Top Up :
+  https://sfl.gl/N1wT
+  Replace Halloween :
+  https://sfl.gl/y234heUP
+  Replace Luckybox :
+  https://sfl.gl/FseruYI
+  Replace MPL :
+  https://sfl.gl/cxdnGZuq
+
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+  
+  ⚠️ Cara Memasang
+  Coming Soon!
+  Update Artikel 19/10/25`,
+    youtubeUrl: "",
+    categories: ["Legend"]
+  },
+  {
+    title: "SCRIPT SKIN ALUCARD LEGEND - OBSIDIAN BLADE",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/hPi0r
+  Replace Default Logo :
+  https://sfl.gl/DWq1
+  Replace Basic :
+  https://sfl.gl/YDvr
+  Replace Basic Logo :
+  https://sfl.gl/oF2y
+  Replace Special :
+  https://sfl.gl/0dAoU
+  Replace Season :
+  https://sfl.gl/0YlZPeq
+  Replace Starlight :
+  https://sfl.gl/hg8H
+  Replace Valentine :
+  https://sfl.gl/NEbKLG4V
+  Replace Empere Agent :
+  https://sfl.gl/6iQpCiY
+  Replace Empere Agent Logo :
+  https://sfl.gl/g9980
+  Replace Top Up :
+  https://sfl.gl/ZovO
+  Replace Starwars :
+  https://sfl.gl/tRz2TPE
+  Replace Epic :
+  https://sfl.gl/Nn398u4Q
+  Replace Lightborn :
+  https://sfl.gl/HolffD4
+  
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+  
+  ⚠️ Cara Memasang
+  Coming Soon!
+  Update Artikel 19/10/25`,
+    youtubeUrl: "",
+    categories: ["Legend"]
+  },
+  {
+    title: "SCRIPT SKIN ALPHA LEGEND - REVENANT OF ROSES",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/Njr9
+  Replace Basic :
+  https://sfl.gl/UcIf2aOA
+  Replace Season :
+  https://sfl.gl/xTWxHUXt
+  Replace Special :
+  https://sfl.gl/3i3f
+  Replace Abyss :
+  https://sfl.gl/aZpLb
+  Replace Luckybox :
+  https://sfl.gl/xcFc84t
+  Replace Collector :
+  https://sfl.gl/Tp4ha
+   
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+  
+  ⚠️ Cara Memasang
+  Coming Soon!
+  Update Artikel 19/10/25`,
+    youtubeUrl: "",
+    categories: ["Legend"]
+  },
+  {
+    title: "SCRIPT SKIN GRANGER LEGEND - STARFALL KNIGHT",
+    description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
+    content: `🗂️ Download Script :
+  Replace Default :
+  https://sfl.gl/qJyPYa
+  Replace Default Logo :
+  https://sfl.gl/lfQfIfX
+  Replace Basic :
+  https://sfl.gl/9y9w
+  Replace Basic Logo :
+  https://sfl.gl/zr2s
+  Replace Elite :
+  https://sfl.gl/3y512A1p
+  Replace Starlight :
+  https://sfl.gl/pNoRY
+  Replace Valentine :
+  https://sfl.gl/SUic6kfM
+  Replace Create :
+  https://sfl.gl/p44MEy
+  Replace Lightborn :
+  https://sfl.gl/dnjfA1bY
+  Replace Transformers :
+  https://sfl.gl/1i29QWs
+  Replace Exorcist :
+  https://sfl.gl/qXb45LL
+  Collector
+  https://sfl.gl/biO23C
+   
+  Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
+  
+  ⚠️ Cara Memasang
+  Coming Soon!
+  Update Artikel 19/10/25`,
+    youtubeUrl: "",
+    categories: ["LEGEND"]
+  },
+  {
     title: "SCRIPT SKIN ANGELA ASPIRANT - CYBER CHERUBIN",
     description: "⚙ Fitur :\nFull Effect, Full Audio, Support All Graphic, No Delay, Hd Skin, No Banned, No Root, Support All Mode.",
     content: `🗂️ Download Script :
@@ -29,7 +163,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
   
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 17/10/25`,
     youtubeUrl: "https://youtu.be/sHELiBsNpLc",
     categories: ["Aspirant"]
@@ -62,7 +196,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
   
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 17/10/25`,
     youtubeUrl: "https://youtu.be/vbDkBO8yRy8",
     categories: ["Aspirant"]
@@ -91,8 +225,8 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
   
   ⚠️ Cara Memasang
-  Link
-  Update Artikel 17/10/25`,
+  Coming Soon!
+  Upda0te Artikel 17/10/25`,
     youtubeUrl: "https://youtu.be/hSRMvRYlRkY",
     categories: ["Aspirant"]
   },
@@ -126,7 +260,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
   
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 17/10/25`,
     youtubeUrl: "https://youtu.be/TPWNpBQOi20",
     categories: ["Aspirant"]
@@ -167,7 +301,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
   
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 16/10/25`,
     youtubeUrl: "https://youtu.be/EFYnbb4GfB8",
     categories: ["Aspirant"]
@@ -204,7 +338,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
   
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 16/10/25`,
     youtubeUrl: "https://youtu.be/xKgIYE_-4ZY",
     categories: ["Aspirant"]
@@ -228,7 +362,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
   
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 9/10/25`,
     youtubeUrl: "https://youtu.be/-hFmUaZxIA8",
     categories: ["Aspirant"]
@@ -256,7 +390,7 @@ const defaultArticles = [
 
   
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 9/10/25`,
     youtubeUrl: "https://youtu.be/109P5gCIRqs",
     categories: ["Aspirant"]
@@ -275,7 +409,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
   
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/TUwz7iUi8ik",
     categories: ["Anniversary"]
@@ -294,7 +428,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
   
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/ENm3usXPEjo",
     categories: ["Anniversary"]
@@ -315,7 +449,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/jJspODPYAs0",
     categories: ["Anniversary"]
@@ -344,7 +478,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/uqTXAopgu_4",
     categories: ["Neobeasts"]
@@ -381,7 +515,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/7wiSYCL_x_I",
     categories: ["Neobeasts"]
@@ -415,7 +549,7 @@ const defaultArticles = [
 
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/ji0-ObchVps",
     categories: ["Neobeasts"]
@@ -444,7 +578,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/BzzD5OIM-M4?si=lMhvF5jApYrA9QS8",
     categories: ["Neobeasts"]
@@ -465,7 +599,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/_DSDagl0G1Y",
     categories: ["Neobeasts"]
@@ -484,7 +618,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/BzzD5OIM-M4",
     categories: ["Metro Zero"]
@@ -505,7 +639,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/hrt_oB1pN7E",
     categories: ["Metro Zero"]
@@ -526,7 +660,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/wUAgNIsTPTg",
     categories: ["Metro Zero"]
@@ -547,7 +681,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/9hnSfw_Gkas",
     categories: ["Kinshin"]
@@ -568,7 +702,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/k6gP2a-8QLI",
     categories: ["Kinshin"]
@@ -589,7 +723,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/Oaonk9K2HbA",
     categories: ["Kinshin"]
@@ -608,7 +742,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/FCJuOA1nKz4",
     categories: ["Fmvp"]
@@ -629,7 +763,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/0jKheOEBdrk",
     categories: ["Champion"]
@@ -650,7 +784,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/aHQf-m55wlU",
     categories: ["Sanrio"]
@@ -667,7 +801,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/Gc7fi0NUrxM",
     categories: ["Sanrio"]
@@ -688,7 +822,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/as4jlvEpC1w",
     categories: ["Sanrio"]
@@ -709,7 +843,7 @@ const defaultArticles = [
   Jika Script Tidak Sesuai Ketika Di Download Silakan Komentar Di Vidio
 
   ⚠️ Cara Memasang
-  Link
+  Coming Soon!
   Update Artikel 27/9/25`,
     youtubeUrl: "https://youtu.be/eUiyXPr2L-o",
     categories: ["Sanrio"]
