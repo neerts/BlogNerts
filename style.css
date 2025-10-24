@@ -1,0 +1,1781 @@
+/* Global */
+* {
+  box-sizing: border-box;
+}
+/* Biarkan hanya gambar yang dibatasi lebarnya */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+:root {
+  --anim-fast: 120ms;
+  --anim-med: 180ms;
+  --easing: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --bg: #101820;
+  --fg-primary: #e9edf3;
+  --fg-heading: #f3f7fb;
+  --fg-muted: #b7becb;
+  --fg-link: #9cc3ff;
+  --placeholder: #8791a3;
+  --header-bg: #1e1e1e;
+  --header-border: #333;
+  --search-bg: #0f1115;
+  --search-border: #5f6673;
+  --search-outline: #5b77ff;
+  --search-error: #ff4d4f;
+  --search-btn-bg: #2f6df6;
+  --search-btn-ico: #fff;
+  --panel-bg: #0c0f14;
+  --panel-border: #5f6673;
+  --thumb-bg: #222;
+  --thumb-border: #333;
+  --control-bg: #161a20;
+  --control-fg: #e9edf3;
+  --control-border: #2b3240;
+  --sheet-bg: #171a20;
+  --sheet-border: #2a3342;
+  --sheet-sep: #2a3342;
+  --radio-ring: #4c6fff;
+  --article-scale: 1;
+  --brand-accent: #fee715;
+}
+
+/* style.css (sekitar baris 50) */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  background-color: var(--bg); /* <-- FIX 1: Ubah ke background-color */
+  color: var(--fg-primary);
+  line-height: 1.6;
+  transition: color 0.3s; /* <-- Perbaikan bug ganti tema */
+  background-image: url('img/gelap.png');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed; /* <-- INI YANG MEMBUAT BACKGROUND DIAM */
+  background-repeat: no-repeat;
+}
+
+/* Header */
+#header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+}
+#menuBtn {
+  font-size: 20px;
+  background: none;
+  border: 0;
+  color: var(--fg-primary);
+  cursor: pointer;
+}
+#siteName {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--fg-heading);
+  margin-left: -6px;
+  margin-top: 4px;
+}
+
+/* Header right icons (ChatGPT-like) */
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--fg-primary);
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+}
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+body.light-mode .icon-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+.icon-btn.kebab::before {
+  content: "⋮";
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* Dropdown kebab di pojok kanan atas header */
+.kebab-menu.top {
+  position: fixed;
+  right: 12px;
+  top: 56px;
+  min-width: 180px;
+  background: var(--panel-bg);
+  border: 0;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  padding: 6px;
+  z-index: 1200;
+}
+/* Gaya dasar untuk SEMUA menu kebab (termasuk .dropdown-yt) */
+.kebab-menu {
+  min-width: 180px;
+  background: var(--panel-bg);
+  border: 0;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  padding: 6px;
+  z-index: 1200;
+}
+
+/* === PERUBAHAN 1: Kebab menu mode terang jadi blur === */
+body.light-mode .kebab-menu {
+  background: rgba(255, 255, 255, 0.85); /* <-- Diubah ke 85% */
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
+}
+
+/* Berlaku untuk SEMUA .menu-item di dalam .kebab-menu */
+.kebab-menu .menu-item {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--fg-primary);
+  border-radius: 8px;
+  cursor: pointer;
+  
+  /* Tambahan dari .dropdown-yt a */
+  font-size: 14px;
+  display: block;
+  text-decoration: none;
+}
+.kebab-menu .menu-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+body.light-mode .kebab-menu .menu-item:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+body.light-mode .kebab-menu.top .menu-item:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Helper */
+.hidden {
+  display: none !important;
+}
+
+/* Sidebar */
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  z-index: 1000;
+}
+/* === SIDEBAR SEDERHANA MODE GELAP & TERANG === */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100vh;
+  transition: left 0.3s ease;
+  z-index: 1001;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+#sidebar.active {
+  left: 0;
+}
+
+/* Mode terang: sedikit putih transparan */
+body.light-mode #sidebar {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(3px);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Navigasi di dalam sidebar */
+.side-nav {
+  padding: 10px 0;
+}
+
+/* Item sidebar */
+.side-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+  border-radius: 8px;
+}
+
+.side-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+body.light-mode .side-item:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.side-label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Pemisah sidebar */
+.side-sep {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 8px 0;
+}
+body.light-mode .side-sep {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Indikator item aktif */
+.side-item.active {
+  background: rgba(99, 102, 241, 0.18);
+  position: relative;
+}
+.side-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 3px;
+  background: #6366f1;
+}
+body.light-mode .side-item.active {
+  background: rgba(99, 102, 241, 0.12);
+}
+
+/* Layout & text */
+#container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 20px;
+  padding-bottom: 80px;
+}
+h1,
+h2,
+h3 {
+  color: var(--fg-heading);
+  margin: 0 0 14px;
+}
+.small,
+.muted {
+  color: var(--fg-muted);
+}
+
+/* Search */
+.searchbox {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.search-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.search-brand {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--fg-heading);
+}
+.search-input-wrap:focus-within {
+  border-color: var(--search-outline);
+}
+.search-input-modern.error {
+  border-color: var(--search-error) !important;
+}
+#searchInput {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 16px;
+  color: var(--fg-primary);
+  background: transparent;
+  border: 0;
+  outline: none;
+}
+#searchInput::placeholder {
+  color: var(--placeholder);
+}
+#searchBtn::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 0 auto;
+  background: var(--search-btn-ico);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='7' fill='black'/><rect x='16' y='16' width='8' height='2' transform='rotate(45 16 16)' fill='black'/></svg>")
+    no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='7' fill='black'/><rect x='16' y='16' width='8' height='2' transform='rotate(45 16 16)' fill='black'/></svg>")
+    no-repeat center / contain;
+}
+
+/* Autosuggest */
+.search-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+  max-height: 65vh;
+  overflow: auto;
+  display: none;
+  z-index: 20;
+}
+.searchbox.open .search-panel {
+  display: block;
+}
+
+/* Baris hasil */
+.result-row {
+  display: grid;
+  grid-template-columns: 150px 1fr; /* slot kiri lebih lebar utk 16:9 */
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  color: var(--fg-primary);
+  text-decoration: none;
+  border-top: 1px solid #242424;
+  background: var(--panel-bg);
+}
+.result-row:first-child { border-top: none; }
+.result-row:hover { background: #151a20; }
+
+/* Thumbnail 16:9 */
+.result-thumb {
+  position: relative;
+  width: 100%;
+  max-width: 160px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--thumb-bg);
+  border: 1px solid var(--thumb-border);
+}
+.result-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.result-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--fg-primary);
+}
+.result-desc {
+  font-size: 13px;
+  color: var(--fg-muted);
+  margin-top: 2px;
+  text-align: center;
+}
+.result-title .hl {
+  color: var(--fg-link);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* Full results */
+.results-box {
+  margin-top: 8px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  max-height: 65vh;
+  overflow-y: auto;
+}
+.results-box.hidden {
+  display: none;
+}
+.result-info {
+  padding: 1px 1px;
+  font-size: 14px;
+  color: var(--fg-muted);
+  background: var(--panel-bg);
+}
+.results-box .result-row {
+  border-top: 1px solid #242424;
+}
+.results-box .result-row:first-child {
+  border-top: none;
+}
+.results-box .empty {
+  padding: 14px 16px;
+  color: var(--fg-muted);
+  text-align: center;
+}
+#searchResults .empty {
+  padding: 14px 16px;
+  color: var(--fg-muted);
+  text-align: center;
+}
+.pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: var(--panel-bg);
+  border-top: 1px solid #242424;
+}
+.pagination button {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 4px;
+  background: #2f6df6;
+  color: #fff;
+  cursor: pointer;
+}
+.page-info {
+  font-size: 13px;
+  color: var(--fg-muted);
+}
+
+/* Settings Sheet */
+#settingsSheet {
+  position: fixed;
+  left: 50%;
+  top: 56px;
+  transform: translateX(-50%);
+  width: min(720px, 92vw);
+  background: var(--sheet-bg);
+  border: 1px solid var(--sheet-border);
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  z-index: 1100;
+}
+#settingsSheet.hidden {
+  display: none;
+}
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--sheet-sep);
+}
+#settingsTitle {
+  margin: 0;
+  font-size: 22px;
+  color: var(--fg-heading);
+}
+#settingsClose {
+  background: none;
+  border: 0;
+  color: var(--fg-primary);
+  font-size: 18px;
+  cursor: pointer;
+}
+.settings-group {
+  padding: 16px 18px;
+}
+.group-title {
+  font-weight: 800;
+  color: var(--fg-heading);
+  font-size: 18px;
+}
+.group-desc {
+  color: var(--fg-muted);
+  margin-bottom: 10px;
+}
+.radio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.radio {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.radio input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--control-border);
+  background: transparent;
+  display: grid;
+  place-items: center;
+}
+.radio input:checked {
+  border-color: var(--radio-ring);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--radio-ring) 20%, transparent);
+}
+.radio input:checked::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--radio-ring);
+}
+.radio span {
+  color: var(--fg-primary);
+}
+#settingsSheet hr {
+  border: 0;
+  border-top: 1px solid var(--sheet-sep);
+  margin: 0;
+}
+.sheet-brand {
+  text-align: center;
+  padding: 20px;
+  font-size: 26px;
+  letter-spacing: 1px;
+  font-weight: 800;
+  color: var(--fg-heading);
+}
+
+/* Light mode overrides */
+body.light-mode {
+  --fg-primary: #1f2937;
+  --fg-heading: #111827;
+  --fg-muted: #4b5563;
+  --fg-link: #2563eb;
+  --placeholder: #9aa3af;
+  --header-bg: #ffffff;
+  --header-border: #e5e7eb;
+  --search-bg: #ffffff;
+  --search-border: #cfd3da;
+  --panel-bg: #ffffff;
+  --panel-border: #cfd3da;
+  --thumb-bg: #f3f4f6;
+  --thumb-border: #e5e7eb;
+  --control-bg: #ffffff;
+  --control-fg: #1f2937;
+  --control-border: #cbd5e1;
+  --sheet-bg: #ffffff;
+  --sheet-border: #e5e7eb;
+  --sheet-sep: #e5e7eb;
+  --brand-accent: #0D074D;
+  background-image: url('img/terang.png');
+}
+
+
+body.light-mode #siteName {
+  color: var(--fg-heading);
+}
+body.light-mode .result-row {
+  background: var(--panel-bg);
+  border-top: 1px solid #eceff4;
+}
+body.light-mode .result-row:hover {
+  background: #f7f9fc;
+}
+
+/* Article Page state */
+#articlePage {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.25s ease;
+  overflow-y: auto;
+}
+#articlePage.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+#articlePage.hidden {
+  display: none;
+}
+
+/* Article View (hero style) */
+.article-view {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 18px 16px 72px;
+}
+/* Judul hero halaman artikel - lebih kecil dan responsif */
+.article-title-hero {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 6px 0 14px;
+  color: var(--fg-heading);
+  font-weight: 900;
+
+  /* kecilkan dari 34px ke 28px maksimal, dan skala lebih landai */
+  font-size: clamp(18px, 4.8vw, 28px);
+  line-height: 1.2;
+}
+
+/* Jika ingin ekstra kompak di layar sangat kecil */
+@media (max-width: 380px) {
+  .article-title-hero {
+    font-size: clamp(17px, 5vw, 24px);
+  }
+}
+
+/* Preview 16:9 tanpa border */
+.preview-box {
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  display: block;
+  background: transparent;
+  margin: 0 6px 18px;
+  text-decoration: none;
+}
+.preview-media {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  overflow: hidden;
+  display: block;
+  background: var(--thumb-bg);
+  border: 1px solid var(--thumb-border);
+}
+.preview-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.preview-note {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--fg-heading);
+  font-weight: 800;
+  text-align: center;
+  font-size: clamp(16px, 3.8vw, 22px);
+  line-height: 1.35;
+  padding: 6px;
+}
+
+/* Deskripsi & konten ikut skala + sejajar */
+.article-desc {
+  margin: 6px calc(12px * var(--article-scale)) 14px;
+  font-size: calc(1.1rem * var(--article-scale));
+  line-height: 1.55;
+  color: var(--fg-primary);
+}
+.article-prose {
+  font-size: calc(1rem * var(--article-scale));
+  line-height: 1.75;
+  color: var(--fg-primary);
+  margin: 0 calc(12px * var(--article-scale)) 24px;
+}
+.article-prose p {
+  margin: 0 0 12px;
+}
+
+/* Link back ikut skala + sejajar */
+#articlePage .back-link {
+  display: inline-block;
+  margin: 0 calc(12px * var(--article-scale)) 0;
+  font-size: calc(1rem * var(--article-scale));
+  line-height: 1.6;
+  color: var(--fg-link);
+  text-decoration: none;
+}
+#articlePage .back-link:hover {
+  text-decoration: underline;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%) translateY(20px);
+  background: #1f2937;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 2000;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+body.light-mode .toast {
+  background: #111827;
+  color: #fff;
+}
+
+/* Brand di header */
+.brand-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-head__word {
+  font-family: "Rubik", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.2px;
+  color: var(--brand-accent);
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Brand strip di atas kolom pencarian */
+.brand-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  text-align: left;
+  gap: 1px;
+}
+.brand-strip__logo {
+  width: 60px;
+  height: 60px;
+}
+.brand-strip__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Nerts pada brand strip */
+.brand-strip__word {
+  font-family: "Rubik", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: 24px;
+  color: var(--brand-accent);
+  margin-top: 4px;
+  line-height: 0.8;
+}
+
+/* Tagline Inconsolata Bold */
+.brand-strip__tagline {
+  font-family: "Inconsolata", monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--fg-muted);
+  margin-top: -7px;
+}
+
+.brand-strip,
+.brand-strip * {
+  user-select: none; /* tidak bisa di-highlight */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  -webkit-touch-callout: none; /* di Safari iOS: blokir popup salin */
+}
+
+.brand-head,
+.brand-head * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  -webkit-touch-callout: none;
+}
+
+/* Responsif kecil */
+@media (max-width: 400px) {
+  .brand-strip__logo {
+    width: 40px;
+    height: 40px;
+  }
+  .brand-strip__word {
+    font-size: 20px;
+  }
+  .brand-strip__tagline {
+    font-size: 11px;
+  }
+}
+
+/* ====== CATEGORY MODAL ====== */
+.category-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 18px;
+  z-index: 1300;
+}
+.category-modal.hidden {
+  display: none;
+}
+
+.category-modal__card {
+  width: min(720px, 94vw);
+  background: var(--sheet-bg);
+  border: 1px solid var(--sheet-border);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.category-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--sheet-sep);
+}
+.category-modal__header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--fg-heading);
+}
+.category-close {
+  background: transparent;
+  border: 0;
+  color: var(--fg-primary);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+.category-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+body.light-mode .category-close:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.category-modal__search {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--sheet-sep);
+}
+#categorySearchInput {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 15px;
+  color: var(--fg-primary);
+  background: var(--search-bg);
+  border: 1.5px solid var(--search-border);
+  border-radius: 8px;
+  outline: none;
+}
+#categorySearchInput:focus {
+  border-color: var(--search-outline);
+}
+
+/* DENGAN INI: */
+.category-modal__list {
+  max-height: 384px; /* <--- Diubah agar muat 8 item (8 * 48px) */
+  overflow-y: auto; /* biar bisa discroll */
+  overflow-x: hidden; /* cegah scroll horizontal */
+}
+
+/* Opsional: scrollbar cantik */
+.category-modal__list::-webkit-scrollbar {
+  width: 8px;
+}
+.category-modal__list::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 120, 0.4);
+  border-radius: 4px;
+}
+.category-modal__list::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 120, 120, 0.6);
+}
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  color: var(--fg-primary);
+  padding: 10px 10px;
+  border-radius: 8px;
+}
+.category-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+body.light-mode .category-item:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.category-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--radio-ring);
+}
+.category-name {
+  font-weight: 600;
+}
+.category-count {
+  margin-left: auto;
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+/* Header (mode gelap) */
+body:not(.light-mode) #header {
+  background: linear-gradient(to bottom, rgb(75, 1, 186) 0%, rgb(40, 2, 100) 50%, rgb(10, 2, 23) 100%);
+  border-bottom: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* Header (mode terang) */
+body.light-mode #header {
+  background: linear-gradient(
+    to bottom,
+    rgb(188, 199, 253) 0%, /* Biru Pucat (#BCC7FD) */
+    rgb(172, 175, 239) 50%, /* WARNA BARU: Ungu Kebiruan (Halus) */
+    rgb(156, 152, 225) 100% /* Ungu Pucat (#9C98E1) */
+  );
+  border-bottom: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* Hover halus (desktop) */
+@media (hover: hover) {
+  .result-row:hover,
+  .category-item:hover,
+  .pagination button:hover,
+  #searchBtn:hover,
+  #articleKebab:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    transform: translateY(-1px);
+  }
+}
+
+/* Kurangi gerak jika user minta reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ui-press {
+    transition: none !important;
+  }
+  .ripple {
+    display: none !important;
+  }
+}
+
+/* =========================================================
+   MODAL KATEGORI: animasi fade & slide
+   ========================================================= */
+.category-modal {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--anim-med) var(--easing),
+    visibility 0s linear var(--anim-med);
+  backdrop-filter: blur(0);
+  margin-top: 58px;
+}
+.category-modal:not(.hidden) {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--anim-med) var(--easing);
+}
+.category-modal__card {
+  transform: translateY(8px);
+  transition: transform var(--anim-med) var(--easing);
+}
+.category-modal:not(.hidden) .category-modal__card {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   SEARCH PANEL & SIDEBAR: transisi ringan
+   ========================================================= */
+.search-panel {
+  transition: opacity var(--anim-fast) var(--easing),
+    transform var(--anim-fast) var(--easing);
+  opacity: 0;
+  transform: translateY(4px);
+}
+.searchbox.open .search-panel {
+  margin-top: 8px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* sidebar bayangan saat aktif (jika belum ada) */
+#sidebar {
+  transition: left var(--anim-med) var(--easing),
+    transform var(--anim-med) var(--easing),
+    box-shadow var(--anim-med) var(--easing);
+}
+#sidebar.active {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* separator tipis di dalam kebab */
+.kebab-menu .menu-sep {
+  border: 0;
+  height: 1px;
+  margin: 6px 4px;
+  background: var(--sheet-border, rgba(255, 255, 255, 0.12));
+}
+
+/* tombol yang punya caret (▾) */
+.menu-item.has-caret {
+  position: relative;
+  padding-right: 28px;
+}
+.menu-item.has-caret::after {
+  content: "▾";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+/* ===== FOOTER (paksa bawah layar) ===== */
+/* ===== FOOTER (paksa bawah layar) ===== */
+.footer{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  background: #0f1115a5;
+  padding: 7px 10px 7px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  text-align: center;
+  /* === PERBAIKAN BUG RENDER (SCROLL) === */
+  transform: translateZ(0);
+}
+/* === PERBAIKAN 2: Footer mode terang (Sistem seperti mode gelap) === */
+body.light-mode .footer{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.85); /* <-- Ganti ke PUTIH 85% */
+  padding: 7px 10px 7px;
+  border-top: 1px solid rgba(0,0,0,.12);    /* <-- Border gelap u/ mode terang */
+  text-align: center;
+  /* backdrop-filter: blur(3px); */        /* <-- Dihapus (tanpa blur) */
+  /* === PERBAIKAN BUG RENDER (SCROLL) === */
+  transform: translateZ(0);
+}
+.footer-inner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Social icons */
+/* Atur ukuran ikon Font Awesome di dalam footer */
+.footer-social .soc .fab {
+  font-size: 24px; /* Anda bisa ubah ukuran ini, misal 22px atau 26px */
+  line-height: 1;
+}
+.footer-social{
+  display: flex;
+  gap: 14px;
+}
+.footer-social .soc{
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  color: #fff;
+  border: 2px solid var(--brand-accent, #FEE715);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease;
+}
+.footer-social .soc:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+  background: var(--brand-accent, #FEE715);
+  color: #0b0d13;
+}
+body.light-mode .footer-social .soc{
+  color: rgba(12,11,11,0.919);
+  border-color: #FEE715;
+}
+body.light-mode .footer-social .soc:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+  background: var(--brand-accent, #FEE715);
+  color: rgba(12,11,11,0.919);
+}
+/* === Reset warna ikon footer setelah diklik (dark mode) === */
+.footer-social .soc:link,
+.footer-social .soc:visited,
+.footer-social .soc:active {
+  color: #fff;                               /* kembali ke warna default */
+  border-color: var(--brand-accent, #FEE715);
+  background: transparent;                   /* jangan tertinggal warna hover */
+  text-decoration: none;                     /* cegah underline visited */
+  -webkit-tap-highlight-color: transparent;  /* hilangkan flash biru/abu di Android */
+}
+
+/* === Reset untuk light mode === */
+body.light-mode .footer-social .soc:link,
+body.light-mode .footer-social .soc:visited,
+body.light-mode .footer-social .soc:active {
+  color: rgba(12,11,11,0.919);                            /* <-- DIUBAH JADI PUTIH */
+  border-color: #FEE715;                     /* <-- DIUBAH JADI PUTIH */
+  background: transparent;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* (Opsional) saat fokus keyboard, tetap rapi tanpa underline */
+.footer-social .soc:focus-visible {
+  outline: 2px solid var(--brand-accent, #FEE715);
+  outline-offset: 2px;
+  text-decoration: none;
+}
+body.light-mode .footer-social .soc:focus-visible {
+  outline: 2px solid var(--brand-accent, #0D074D);
+}
+/* Elemen yang tidak boleh diterjemahkan */
+.notranslate {
+  unicode-bidi: isolate;         /* mencegah reflow aneh saat layanan terjemah menyisipkan span */
+}
+
+/* Header hasil (info + tombol ✕) */
+.result-header{
+  position: sticky; top: 0; z-index: 1;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 8px;
+  background: var(--panel-bg);
+  padding: 6px 10px;
+  border-bottom: none; /* tidak ada garis di header */
+}
+
+/* OVERRIDE: jika .result-info ada di dalam header, jangan pakai gaya 'panel' */
+.result-header .result-info{
+  border-bottom: none;     /* hilangkan garis bawaan */
+  background: transparent; /* jangan timpa background header */
+  padding: 0;              /* pakai padding header saja */
+  font-size: 14px;
+  color: var(--fg-muted);
+}
+
+/* Tombol ✕ */
+.close-results{
+  background: transparent; border: 0;
+  padding: 6px 10px; font-size: 18px; line-height: 1;
+  color: var(--fg-primary); cursor: pointer; border-radius: 4px;
+}
+.close-results:hover{ background: rgba(255,255,255,.08); }
+body.light-mode .close-results:hover{ background: rgba(0,0,0,.06); }
+
+/* Wrapper video agar ratio tetap 16:9 */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 = 9/16 = 0.5625 → 56.25% */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px; /* opsional, biar agak rounded */
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* supaya ellipsis/line-clamp bisa jalan di grid */
+.result-main { min-width: 0; }
+
+/* Judul 1 baris + … */
+.result-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Deskripsi maksimal 2 baris + … */
+.result-desc{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+  max-height: calc(1.4em * 2);
+}
+
+/* Biar hanya isi card Panduan yang bisa discroll */
+.help-page {
+  position: fixed;
+  inset: 0;                 /* full layar */
+  background: rgba(0,0,0,0.55); /* opsional: backdrop gelap */
+  z-index: 1400;
+  display: flex;
+  align-items: flex-start;   /* biar kotak naik ke atas */
+  justify-content: center;
+  overflow: hidden;          /* jangan scroll body */
+  padding-top: 40px;         /* jarak dari atas */
+}
+
+.help-page.hidden {
+  display: none;
+}
+
+.help-page .card {
+  max-width: 860px;
+  width: 94%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 16px 12px; /* ubah dari 18px → 12px agar lebih rapat kiri */
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+}
+
+.help-page ul {
+  margin: 0 0 10px 16px; /* default list */
+  padding-left: 16px;    /* bisa dikecilkan misalnya ke 12px */
+}
+.help-page h2{ margin: 4px 0 12px; font-size: 22px; }
+.help-page h3{ margin: 16px 0 8px; font-size: 16px; }
+.help-page ul{ margin: 0 0 10px 18px; }
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* ===== GAYA BARU UNTUK IKON SIDEBAR (FONT AWESOME) ===== */
+
+.side-ico {
+  /* Ini adalah UKURAN ikon (font), bukan kotak */
+  font-size: 22px; 
+  
+  /* Ini mengatur perataan, BUKAN membuat kotak */
+  flex-shrink: 0;
+  width: 30px; 
+  text-align: center;
+  
+  /* ▼▼▼ INI YANG ANDA INGINKAN ▼▼▼
+    Ini adalah WARNA IKON di mode gelap (putih keabuan)
+  */
+  color: #9aa3af; 
+  transition: color 0.2s ease;
+}
+
+/* Warna saat di-hover (mode gelap) */
+.side-item:hover .side-ico {
+  color: #fff;
+}
+
+/* Warna saat aktif (mode gelap) */
+.side-item.active .side-ico {
+  color: #6366f1;
+}
+
+/* --- Override untuk Mode Terang --- */
+
+/* ▼▼▼ INI YANG ANDA INGINKAN ▼▼▼
+  Ini adalah WARNA IKON di mode terang (hitam)
+*/
+body.light-mode .side-ico {
+  color: #111; 
+}
+
+/* Warna saat di-hover (mode terang) */
+body.light-mode .side-item:hover .side-ico {
+  color: #000;
+}
+
+/* Warna saat aktif (mode terang) */
+body.light-mode .side-item.active .side-ico {
+  color: #4f46e5; 
+}
+
+.article-prose a {
+  color: var(--fg-link);
+  text-decoration: underline;
+  word-break: break-all; /* kalau link panjang, bisa terpotong rapi */
+}
+
+/* ======= SEARCH MODERN STYLE ======= */
+.search-input-modern {
+  display: flex;
+  align-items: center;
+  background: var(--search-bg);
+  border: 2px solid var(--search-border);
+  border-radius: 30px;
+  padding: 6px 10px;
+  transition: border-color 0.18s ease;
+  position: relative;
+}
+
+.search-input-modern:focus-within {
+  border-color: var(--search-outline);
+}
+
+.search-input-modern input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--fg-primary);
+  font-size: 16px;
+  padding: 8px 10px;
+  outline: none;
+}
+
+/* ====== SEARCH ICON NORMAL ====== */
+.search-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 6px;
+  background: var(--fg-muted);
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='7' fill='black'/><rect x='16' y='16' width='8' height='2' transform='rotate(45 16 16)' fill='black'/></svg>")
+    no-repeat center / contain;
+  border: 2px solid transparent;
+  border-radius: 50%;
+}
+
+/* ====== GOOGLE-LIKE LOADING SPINNER ====== */
+.search-icon.loading {
+  mask: none;
+  background: none;
+  /* width, height, dan border-radius sudah diatur di .search-icon */
+  border: 2px solid var(--fg-muted);
+  border-top-color: transparent;
+  animation: googleSpin 0.9s linear infinite;
+}
+
+@keyframes googleSpin {
+  0% {
+    transform: rotate(0deg);
+    border-top-color: transparent;
+  }
+  25% {
+    border-top-color: var(--fg-link);
+  }
+  50% {
+    border-top-color: var(--brand-accent);
+  }
+  75% {
+    border-top-color: var(--fg-link);
+  }
+  100% {
+    transform: rotate(360deg);
+    border-top-color: transparent;
+  }
+}
+
+#clearBtn {
+  background: transparent;
+  border: none;
+  color: var(--fg-muted);
+  font-size: 20px;
+  margin-right: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+#clearBtn.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ===== GAYA BARU UNTUK IKON FILTER (FONT AWESOME) ===== */
+#filterBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  
+  /* --- Menjaga posisi geser Anda --- */
+  position: relative;
+  top: 1px;
+  left: -4px;
+  
+  /* Atur warna ikon */
+  color: var(--fg-muted);
+  transition: color 0.2s ease;
+}
+
+/* Atur ukuran ikon di dalamnya */
+#filterBtn i {
+  font-size: 18px; /* Sesuaikan ukurannya di sini */
+  line-height: 1;
+}
+
+/* Ganti warna ikon saat di-hover (bukan filter) */
+#filterBtn:hover {
+  color: var(--fg-primary);
+}
+
+/* ====== ARTIKEL TERBARU (STYLE LIST/DAFTAR) ====== */
+
+#latestArticlesContainer {
+  margin-top: 24px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--fg-heading);
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+
+/* Ini adalah container untuk semua kartu */
+#latestArticlesList {
+  display: grid;
+  grid-template-columns: 1fr; /* Selalu 1 kolom (tampilan daftar) */
+  gap: 16px; /* Jarak antar kartu */
+}
+
+/* Kartu individu (item daftar) */
+.latest-card-list {
+  display: flex;
+  gap: 12px; /* Jarak antara thumbnail dan detail */
+  background: transparent; /* Tidak perlu background kartu lagi */
+}
+
+/* 1. Thumbnail (Sebelah Kiri) */
+.thumb-wrapper-list {
+  position: relative;
+  display: block;
+  width: 160px; /* Lebar thumbnail tetap */
+  flex-shrink: 0; /* Jangan sampai thumbnail-nya gepeng */
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--thumb-bg);
+}
+
+.thumb-wrapper-list img {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Jaga rasio 16:9 */
+  object-fit: cover;
+  display: block;
+}
+
+/* 2. Detail (Sebelah Kanan) */
+.details-wrapper-list {
+  display: flex;
+  flex: 1; /* Ambil sisa ruang */
+  min-width: 0; /* Penting agar ellipsis berfungsi */
+  gap: 8px;
+  padding-top: 2px; /* Sedikit padding atas */
+}
+
+.meta-list {
+  flex: 1;
+  min-width: 0;
+}
+
+.title-list {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fg-heading);
+  text-decoration: none;
+  display: block;
+  /* Efek 2 baris ellipsis */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+.title-list:hover {
+  text-decoration: underline;
+}
+
+/* Baris meta (Nerts • Tanggal) */
+.meta-line-list {
+  display: block;
+  font-size: 13px;
+  color: var(--fg-muted);
+  margin-top: 6px;
+  white-space: nowrap; /* Biar tidak terpotong */
+}
+
+/* 3. Tombol Titik Tiga (paling kanan) */
+.dots-menu-yt {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.dots-btn-yt {
+  background: transparent;
+  border: 0;
+  color: var(--fg-muted);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  padding: 4px;
+  border-radius: 50%;
+  margin-top: -4px; /* Geser sedikit ke atas */
+}
+.dots-btn-yt:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+body.light-mode .dots-btn-yt:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Dropdown menu (sama seperti sebelumnya) */
+.dropdown-yt {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: -55px;
+  z-index: 10;
+}
+
+@media (max-width: 420px) {
+  .thumb-wrapper-list {
+    width: 120px; /* Buat thumbnail lebih kecil */
+  }
+  .title-list {
+    font-size: 15px; /* Kecilkan judul */
+  }
+  .meta-line-list {
+    font-size: 12px;
+  }
+}
+
+/* ===== Search Gradient Overlay ===== */
+#searchGradientOverlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  /* 'top' dan 'bottom' akan diatur oleh JavaScript */
+  
+  /* Gradien: "semakin bawah semakin gelap" */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.05), /* Mulai sedikit gelap */
+    rgba(0, 0, 0, 0.7)  /* Menjadi gelap pekat di bawah */
+  );
+  
+  /* Efek blur untuk mempercantik */
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(2px);
+  
+  z-index: 19; /* Di bawah panel pencarian (20) tapi di atas konten */
+  
+  /* Sembunyi by default */
+  opacity: 0;
+  pointer-events: none; /* Tidak bisa diklik */
+  
+  /* Transisi untuk Animasi 1 (muncul) dan Animasi 2 (hilang) */
+  transition: opacity 300ms ease, clip-path 350ms ease;
+  
+  /* State awal untuk Animasi 2 (hilang) */
+  clip-path: inset(0 0 0 0); 
+}
+
+body.light-mode #searchGradientOverlay {
+  /* Gradasi 3-langkah: transparan -> krem tipis -> krem gelap (hangat) */
+  background: linear-gradient(
+    to bottom,
+    rgba(109, 92, 71, 0.0) 0%,   /* Paling atas: transparan */
+    rgba(109, 92, 71, 0.25) 50%, /* Tengah: krem sedikit gelap */
+    rgba(109, 92, 71, 0.45) 100% /* Bawah: krem gelap (tidak terlalu gelap) */
+  );
+  
+  /* Hapus efek blur di mode terang agar terlihat bersih */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+
+#searchGradientOverlay.visible {
+  opacity: 1;
+  pointer-events: none; /* Tetap 'none' agar tidak menghalangi klik */
+}
+
+/* State untuk Animasi 2: "hilang dari bawah ke atas" */
+#searchGradientOverlay.hiding-up {
+  opacity: 1; /* Pastikan terlihat saat animasi clip-path */
+  clip-path: inset(0 0 100% 0); /* Menciut dari bawah ke atas */
+}
+/* ===== PERBAIKAN: Samakan warna link "Kembali" di Panduan ===== */
+#helpPage .back-link {
+  color: var(--fg-link);      /* <-- Menggunakan variabel warna yg sama dgn artikel */
+  text-decoration: none;      /* <-- Hapus underline di kondisi normal */
+  font-size: 1rem;            /* <-- Pastikan ukurannya standar */
+}
+
+#helpPage .back-link:hover {
+  text-decoration: underline; /* <-- Tampilkan underline saat di-hover */
+}
+.load-more-btn {
+  display: block;
+  width: 90%;
+  max-width: 300px;
+  margin: 20px auto 16px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid var(--control-border);
+  background: var(--control-bg);
+  color: var(--fg-primary);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.load-more-btn:hover {
+  border-color: var(--search-outline);
+  background: var(--panel-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+body.light-mode .load-more-btn:hover {
+  border-color: var(--search-outline);
+  background: #fff;
+}
+.load-more-btn.hidden {
+  display: none;
+}
+/* ===== Animasi Kursor 2-Warna (Lompat/Blink) ===== */
+
+/* 1. Animasi untuk MODE GELAP (Hijau Terang & Biru/Cyan) */
+@keyframes multiBlinkDark {
+  /* 50% pertama: Hijau Terang */
+  0%, 49.9% {
+    caret-color: rgb(74, 222, 128);
+  }
+  /* 50% kedua: Biru/Cyan */
+  50%, 100% {
+    caret-color: rgb(8, 204, 238);
+  }
+}
+
+/* 2. Animasi untuk MODE TERANG (Hijau Gelap & Biru Variabel) */
+@keyframes multiBlinkLight {
+  /* 50% pertama: Hijau Gelap */
+  0%, 49.9% {
+    caret-color: rgb(22, 163, 74);
+  }
+  /* 50% kedua: Biru (sesuai variabel mode terang) */
+  50%, 100% {
+    caret-color: var(--fg-link); 
+  }
+}
+
+/* 3. Terapkan animasi (Default: Mode Gelap) */
+#searchInput:focus {
+  /* Durasi 2 detik: 1 detik Hijau, 1 detik Biru */
+  animation: multiBlinkDark 2s infinite;
+  /* Kita tidak pakai 'steps()' di sini, karena keyframe sudah mengaturnya */
+}
+
+/* 4. Override untuk Mode Terang */
+body.light-mode #searchInput:focus {
+  animation-name: multiBlinkLight; /* Ganti animasinya */
+  animation-duration: 2s; /* Pastikan durasi tetap sama */
+}
+/*
+=========================================================
+PERBAIKAN RESPONSIVE (LAPTOP, DESKTOP, TV)
+=========================================================
+*/
+
+/* * Breakpoint 1: Tablet (768px) dan lebih besar
+ * - Melebarkan area konten utama agar tidak terlalu sempit.
+ */
+@media (min-width: 768px) {
+  /* Lebarkan kontainer utama di homepage */
+  #container,
+  .searchbox {
+    max-width: 800px;
+  }
+
+  /* Lebarkan halaman artikel agar lebih nyaman dibaca */
+  .article-view {
+    max-width: 860px;
+  }
+  
+  /* Lebarkan modal panduan/kategori */
+  .category-modal__card,
+  .help-page .card {
+    width: min(800px, 94vw);
+  }
+}
+
+
+/* * Breakpoint 2: Desktop (1100px) dan lebih besar
+ * - Sidebar menjadi permanen di kiri.
+ * - Konten utama bergeser ke kanan.
+ * - Konten utama dilebarkan lagi.
+ */
+@media (min-width: 1100px) {
+
+  /* 1. Sembunyikan tombol menu (hamburger) */
+  #menuBtn {
+    display: none;
+  }
+
+  /* 2. Tampilkan sidebar secara permanen */
+  #sidebar {
+    left: 0;
+    box-shadow: none; /* Hapus bayangan 'slide-over' */
+    border-right: 1px solid var(--sheet-border); /* Tambah garis batas */
+  }
+  
+  /* 3. Sembunyikan overlay */
+  #overlay {
+    display: none !important;
+  }
+
+  /* 4. Geser Header, Konten Utama, dan Footer ke kanan */
+  #header,
+  main#container,
+  #siteFooter.footer {
+    margin-left: 260px; /* Lebar sidebar */
+  }
+  
+  /* 5. Atur ulang lebar footer agar pas */
+  #siteFooter.footer {
+    width: calc(100% - 260px); 
+  }
+  
+  /* 6. Pastikan padding bawah cukup */
+  main#container {
+     padding-bottom: 120px;
+  }
+
+  /* 7. Lebarkan lagi kontainer untuk layar besar */
+  #container,
+  .searchbox {
+    max-width: 900px;
+  }
+  
+  .article-view {
+    max-width: 960px;
+  }
+}
