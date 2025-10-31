@@ -1,7 +1,6 @@
-// File: script.js (Perubahan)
-let articles = [];
-const initialArticleCount = 4;
-let articlesFromNewestDate = [];
+// File: script.js (Versi 2.1 - Performa Server-Side + Logika Beranda Asli)
+let articles = []; // Sekarang hanya menyimpan artikel yg sedang ditampilkan
+let articlesFromNewestDate = []; // Cache untuk artikel di beranda
 
 /* ====== DOM ====== */
 const $ = (s, r = document) => r.querySelector(s);
@@ -69,19 +68,9 @@ function slugify(text) {
 
 function getArticleDateString(article) {
   if (!article) return "no-date";
-  
-  // 1. Prioritaskan properti 'date' yang baru
   if (article.date && article.date.trim() !== "") {
     return article.date;
   }
-  
-  // 2. Fallback: Jika 'date' tidak ada, cari di content (untuk artikel lama)
-  if (article.content) {
-    const match = article.content.match(/Update Artikel (\d{1,2}\/\d{1,2}\/\d{2,4})/);
-    if (match) return match[1];
-  }
-  
-  // 3. Jika tidak ada sama sekali
   return "no-date";
 }
 
@@ -118,43 +107,25 @@ const debounce = (fn, ms=300) => {
 let toastTimer;
 
 function showSearchOverlay() {
-  // Pastikan semua elemen ada
   if (!searchGradientOverlay || !searchbox || !siteFooter) return;
-  
-  // Ambil posisi bawah kotak pencarian (relatif ke layar)
   const searchboxRect = searchbox.getBoundingClientRect();
-  
-  // Ambil tinggi footer
   const footerHeight = siteFooter.offsetHeight;
-  
-  // Atur overlay:
-  // Mulai TEPAT DI BAWAH kotak pencarian
   searchGradientOverlay.style.top = `${searchboxRect.bottom}px`; 
-  
-  // Berakhir TEPAT DI ATAS footer
   searchGradientOverlay.style.bottom = `${footerHeight}px`;
-  
-  // Hapus style 'height' jika ada, biarkan 'top' dan 'bottom' yg mengatur
   searchGradientOverlay.style.height = 'auto'; 
-  
   searchGradientOverlay.classList.remove('hiding-up');
   searchGradientOverlay.classList.add('visible');
 }
 
 function hideSearchOverlay(animate = false) {
   if (!searchGradientOverlay) return;
-  
   if (animate) {
-    // Animasi "hilang dari bawah ke atas"
     searchGradientOverlay.classList.add('hiding-up');
-    
-    // Setelah animasi selesai, sembunyikan total
     setTimeout(() => {
       searchGradientOverlay.classList.remove('visible');
       searchGradientOverlay.classList.remove('hiding-up');
-    }, 350); // Samakan dengan durasi transisi CSS
+    }, 350); 
   } else {
-    // Sembunyikan langsung (tanpa animasi)
     searchGradientOverlay.classList.remove('visible');
     searchGradientOverlay.classList.remove('hiding-up');
   }
@@ -173,21 +144,50 @@ function showToast(msg) {
 	toastTimer = setTimeout(() => el.classList.remove('show'), 1600);
 }
 
-/* ===== HENTIKAN SEMUA IFRAME (YouTube) ===== */
 const stopAllIframes = () => 
   document.querySelectorAll('iframe').forEach(f => f.src = f.src);
   
-/* ====== SEARCH HELPERS ====== */
-function getSuggest(q) {
+/* ====== SEARCH HELPERS (SEKARANG ASYNC) ====== */
+
+// getSuggest (BERTANYA KE SUPABASE)
+async function getSuggest(q) {
 	const n = normalize(q).trim();
 	if (!n) return [];
-	return articles.filter(a => normalize(a.title).includes(n)).slice(0, 4);
+	
+    const { data, error } = await supabase
+        .from('articles')
+        .select('title, slug, description, youtube_url')
+        .textSearch('title', `'${n}'`, { 
+            type: 'websearch',
+            config: 'english'
+        })
+        .limit(4);
+
+    if (error) {
+        console.error("Suggest error:", error);
+        return [];
+    }
+	return data;
 }
 
-function getMatches(q) {
+// getMatches (BERTANYA KE SUPABASE)
+async function getMatches(q) {
 	const n = norm(q);
 	if (!n) return [];
-	return articles.filter(a => norm(a.title).includes(n));
+	
+    const { data, error } = await supabase
+        .from('articles')
+        .select('*')
+        .textSearch('title', `'${n}'`, {
+            type: 'websearch',
+            config: 'english'
+        });
+        
+    if (error) {
+        console.error("Search error:", error);
+        return [];
+    }
+	return data;
 }
 
 /* ====== RENDER ====== */
@@ -217,7 +217,6 @@ function renderSuggest(list, kw) {
     const row = document.createElement("a");
     row.href = "#";
     row.className = "result-row";
-    // Ambil youtube_url dari Supabase, BUKAN youtubeUrl
     const thumb = a.youtube_url ? getYouTubeThumb(a.youtube_url) : (a.image || "");
     row.onclick = (e) => { e.preventDefault(); openArticleBySlug(a.slug); };
     row.innerHTML = `
@@ -251,18 +250,13 @@ function renderResultsBox(list, kw) {
     return;
   }
   searchWrap?.classList.remove("error");
-  const total = list.length;
-  const lastPage = Math.max(1, Math.ceil(total / perPage));
-  if (currentPage > lastPage) currentPage = lastPage;
-  const start = (currentPage - 1) * perPage;
-  const end   = start + perPage;
-  const pageResults = list.slice(start, end);
-  pageResults.forEach((a) => {
+  
+  // Hapus logika paginasi, tampilkan semua hasil
+  list.forEach((a) => {
     const row = document.createElement("a");
     row.href = "#";
     row.className = "result-row";
     row.onclick = (e) => { e.preventDefault(); openArticleBySlug(a.slug); };
-    // Ambil youtube_url dari Supabase, BUKAN youtubeUrl
     const thumb = a.youtube_url ? getYouTubeThumb(a.youtube_url) : (a.image || "");
     row.innerHTML = `
       <div class="result-thumb">
@@ -275,27 +269,7 @@ function renderResultsBox(list, kw) {
     `;
     resultsBox.appendChild(row);
   });
-  const nav = document.createElement("div");
-  nav.className = "pagination";
-  if (currentPage > 1) {
-    const prev = document.createElement("button");
-    prev.className = "page-btn";
-    prev.textContent = "Sebelumnya";
-    prev.onclick = () => { currentPage--; renderResultsBox(currentResults, searchInput.value); };
-    nav.appendChild(prev);
-  }
-  const pi = document.createElement("span");
-  pi.className = "page-info";
-  pi.textContent = `Halaman ${currentPage} dari ${lastPage}`;
-  nav.appendChild(pi);
-  if (end < total) {
-    const next = document.createElement("button");
-    next.className = "page-btn";
-    next.textContent = "Berikutnya";
-    next.onclick = () => { currentPage++; renderResultsBox(currentResults, searchInput.value); };
-    nav.appendChild(next);
-  }
-  resultsBox.appendChild(nav);
+
   const closeBtn = resultsBox.querySelector("#closeResultsBtn");
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
@@ -308,7 +282,8 @@ function renderResultsBox(list, kw) {
   }
 }
 
-function runFull() {
+// runFull (SEKARANG ASYNC)
+async function runFull() {
   const kw = (searchInput?.value ?? "").trim();
   if (!kw) {
     fullMode = false;
@@ -318,58 +293,60 @@ function runFull() {
     setTimeout(() => searchWrap?.classList.remove("error"), 1200);
     setQueryParam("q", "");
     currentResults = [];
-    currentPage = 1;
-    hideSearchOverlay(false); // <--- TAMBAHAN
+    hideSearchOverlay(false);
     return;
   }
 
-  // Panggil animasi "hilang dari bawah ke atas"
-  hideSearchOverlay(true); // <--- TAMBAHAN
+  hideSearchOverlay(true);
 
-  currentResults = getMatches(kw);
+  // BERTANYA KE SUPABASE
+  currentResults = await getMatches(kw);
+  
   if (currentResults.length === 0) {
     fullMode = false;
     resultsBox?.classList.add("hidden");
-    renderSuggest([], kw);
+    renderSuggest([], kw); // Tampilkan "Tidak ada hasil" di panel suggest
     openPanel();
     setQueryParam("q", "");
-    currentPage = 1;
     return;
   }
   fullMode = true;
   closePanel();
-  currentPage = 1;
   setQueryParam("q", kw);
   renderResultsBox(currentResults, kw);
 }
 
 /* ====== KODE BARU (PERBAIKAN) ====== */
 document.addEventListener("click", (e) => {
-    // Definisikan area aman secara lebih spesifik
-	const clickedInSearchInput = searchWrap?.contains(e.target); // Hanya area input
-	const clickedInSuggestions = searchResults?.contains(e.target); // Hanya panel saran
+	const clickedInSearchInput = searchWrap?.contains(e.target);
+	const clickedInSuggestions = searchResults?.contains(e.target);
 	const clickedOnMenuBtn = menuBtn?.contains(e.target) || e.target === menuBtn;
 	const clickedOnOverlay = overlay?.contains(e.target) || e.target === overlay;
 	const clickedInSidebar = sidebar?.contains(e.target);
-
-    // Gabungkan area aman yang baru
 	const isSafeClick = clickedInSearchInput || clickedInSuggestions || clickedOnMenuBtn || clickedOnOverlay || clickedInSidebar;
 	
 	if (!isSafeClick && !fullMode) {
 		closePanel();
-    hideSearchOverlay(false);
-  }
+        hideSearchOverlay(false);
+    }
 });
 
-/* ====== MINI FITUR ====== */
-function openRandomArticle() {
-	if (!articles || articles.length === 0) return;
-	const idx = Math.floor(Math.random() * articles.length);
-	const randomSlug = articles[idx].slug;
+/* ====== MINI FITUR (SEKARANG ASYNC) ====== */
+async function openRandomArticle() {
+	// Ambil 1 artikel acak dari Supabase
+    const { data, error } = await supabase.rpc('get_random_article'); // Butuh fungsi SQL
+    
+    // Fallback sederhana jika RPC gagal
+    if (error || !data || data.length === 0) {
+        showToast("Gagal memuat artikel acak.");
+        return;
+    }
+    
+	const randomSlug = data[0].slug;
 	openArticleBySlug(randomSlug);
 }
 
-/* ====== ARTIKEL ====== */
+/* ====== ARTIKEL (SEKARANG ASYNC) ====== */
 
 function showArticleKebab(show) {
 	if (!kebabBtn) return;
@@ -378,12 +355,12 @@ function showArticleKebab(show) {
 		kebabBtn.classList.add('hidden');
 		kebabMenu?.classList.add('hidden');
 	}
-  }
-  kebabBtn?.addEventListener('click', (e) => {
-  	e.stopPropagation();
-  	kebabMenu.classList.toggle('hidden');
-  });
-  document.addEventListener('click', (e) => {
+}
+kebabBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    kebabMenu.classList.toggle('hidden');
+});
+document.addEventListener('click', (e) => {
 	if (!kebabMenu.classList.contains('hidden')) {
 		const inside = e.target === kebabBtn || kebabMenu.contains(e.target);
 		if (!inside) kebabMenu.classList.add('hidden');
@@ -400,59 +377,64 @@ kebabMenu?.addEventListener('click', async (e) => {
     if (act === 'share') {
 		try {
 			if (navigator.share) {
-				await navigator.share({
-					title,
-					text: title,
-					url
-				});
+				await navigator.share({ title, text: title, url });
 			} else {
 				await navigator.clipboard.writeText(url);
 				showToast('Tautan disalin');
 			}
-		} catch {
-			showToast('Gagal membagikan');
-		}
+		} catch { showToast('Gagal membagikan'); }
 	}
 	
     if (act === 'copy') {
 		try {
 			await navigator.clipboard.writeText(url);
 			showToast('Tautan disalin');
-		} catch {
-			showToast('Gagal menyalin');
-		}
+		} catch { showToast('Gagal menyalin'); }
 	}
 
     if (act === 'report') {
 		try {
 			const FORM_PREFILL_URL = "https://forms.gle/farsH9k9UN2gSdjYA";
-
 			const encodedTitle = encodeURIComponent(title);
 			const encodedUrl = encodeURIComponent(url);
-
-			const finalUrl = FORM_PREFILL_URL
-								.replace("JUDUL", encodedTitle)
-								.replace("URL", encodedUrl);
+			const finalUrl = FORM_PREFILL_URL.replace("JUDUL", encodedTitle).replace("URL", encodedUrl);
 			window.open(finalUrl, '_blank');
 			showToast('Membuka formulir laporan...');
-
-		} catch (err) {
-			showToast('Gagal membuka formulir');
-		}
+		} catch (err) { showToast('Gagal membuka formulir'); }
 	}
 	kebabMenu.classList.add('hidden');
 });
 
-function openArticleBySlug(slug) {
-	const a = articles.find(x => x.slug === slug);
+// openArticleBySlug (SEKARANG ASYNC)
+async function openArticleBySlug(slug) {
+    // 1. Cek dulu di cache beranda (articlesFromNewestDate)
+	let a = articlesFromNewestDate.find(x => x.slug === slug);
+
+    // 2. Jika tidak ada (misal link langsung ke artikel lama), AMBIL DARI SUPABASE
+    if (!a) {
+        try {
+            const { data, error } = await supabase
+                .from('articles')
+                .select('*')
+                .eq('slug', slug)
+                .single();
+            if (error) throw error;
+            a = data;
+        } catch (error) {
+            console.error("Gagal memuat artikel:", error.message);
+            showToast("Artikel tidak ditemukan.");
+            goHome(); // Kembali ke beranda jika slug salah
+            return;
+        }
+    }
+    
+    // 3. Lanjutkan render seperti biasa
 	if (!a) return;
-  stopAllIframes();
+    stopAllIframes();
 	if (location.hash !== `#/artikel/${slug}`) {
 		location.hash = `#/artikel/${slug}`;
 	}
   
-    // === PERBAIKAN SEO & SHARING ===
-    // Ambil youtube_url dari Supabase, BUKAN youtubeUrl
     const thumb = a.youtube_url ? getYouTubeThumb(a.youtube_url) : (a.image || "img/nerts-mark.png");
     const plainDescription = (a.description || "").split('\n')[0]; 
 
@@ -462,44 +444,43 @@ function openArticleBySlug(slug) {
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', plainDescription);
     document.querySelector('meta[property="og:image"]')?.setAttribute('content', thumb);
     document.querySelector('meta[property="og:url"]')?.setAttribute('content', location.href);
-    // === AKHIR PERBAIKAN ===
 
-  const hasMedia = !!(a.youtube_url || a.image);
-  articleContent.className = "article-view";
-  articleContent.innerHTML = `
-    <h1 class="article-title-hero">${a.title}</h1>
-    ${
-      hasMedia
-        ? (a.youtube_url // Gunakan youtube_url
-            ? (() => {
-                let vid = "";
-                try {
-                  const u = new URL(a.youtube_url); // Gunakan youtube_url
-                  if (u.hostname.includes("youtu.be")) {
-                    vid = u.pathname.slice(1);
-                  } else if (u.searchParams.get("v")) {
-                    vid = u.searchParams.get("v");
-                  }
-                } catch {}
-            return `
-              <div class="preview-box video-wrapper">
-                <iframe 
-                  src="https://www.youtube.com/embed/${vid}" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                  allowfullscreen>
-                </iframe>
-              </div>
-            `;
-            })()
-            : `<div class="preview-box"><span class="preview-media"><img src="${a.image}" alt="${a.title}"></span></div>`
-          )
-        : `<div class="preview-box"><div class="preview-note">Tidak ada media</div></div>`
-    }
-    ${a.description ? `<p class="article-desc">${a.description.replace(/\n/g,"<br>")}</p>` : ""}
-    <div class="article-prose">${linkify(a.content)}</div>
-    <a href="#" class="back-link" onclick="goHome();return false;">← Kembali ke Beranda</a>
-  `;
+    const hasMedia = !!(a.youtube_url || a.image);
+    articleContent.className = "article-view";
+    articleContent.innerHTML = `
+        <h1 class="article-title-hero">${a.title}</h1>
+        ${
+        hasMedia
+            ? (a.youtube_url
+                ? (() => {
+                    let vid = "";
+                    try {
+                    const u = new URL(a.youtube_url);
+                    if (u.hostname.includes("youtu.be")) {
+                        vid = u.pathname.slice(1);
+                    } else if (u.searchParams.get("v")) {
+                        vid = u.searchParams.get("v");
+                    }
+                    } catch {}
+                return `
+                <div class="preview-box video-wrapper">
+                    <iframe 
+                    src="https://www.youtube.com/embed/${vid}" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                    </iframe>
+                </div>
+                `;
+                })()
+                : `<div class="preview-box"><span class="preview-media"><img src="${a.image}" alt="${a.title}"></span></div>`
+            )
+            : `<div class="preview-box"><div class="preview-note">Tidak ada media</div></div>`
+        }
+        ${a.description ? `<p class="article-desc">${a.description.replace(/\n/g,"<br>")}</p>` : ""}
+        <div class="article-prose">${linkify(a.content)}</div>
+        <a href="#" class="back-link" onclick="goHome();return false;">← Kembali ke Beranda</a>
+    `;
 	homepage?.classList.add("hidden");
 	articlePage?.classList.remove("hidden");
 	setTimeout(() => articlePage?.classList.add("active"), 10);
@@ -544,11 +525,7 @@ window.goHome = function() {
     articleContent.innerHTML = "";
     articleContent.className = "";
   }
-  
-  // 1. HAPUS PARAMETER 'q' DARI URL
   setQueryParam("q", "");
-  
-  // 2. BERSIHKAN KOTAK INPUT
   if (searchInput) searchInput.value = "";
   if (clearBtn) clearBtn.classList.add("hidden");
 
@@ -557,28 +534,23 @@ window.goHome = function() {
     articlePage?.classList.add("hidden");
     homepage?.classList.remove("hidden");
     helpPage?.classList.add('hidden');
-    
-    // 3. SEMBUNYIKAN SEMUA PANEL & RESET STATE
     resultsBox?.classList.add("hidden");
     closePanel(); 
     hideSearchOverlay(false);
     fullMode = false;
     currentResults = [];
-    
     showArticleKebab(false);
     
-    // 4. NAVIGASI (sekarang loadFromURL akan melihat q="" dan menampilkan beranda bersih)
     if (location.hash && location.hash !== "#/") {
       location.hash = "#/";
     } else {
-      // Jika hash sudah #/, paksa tutup panel (jaga-jaga)
       closePanel();
       resultsBox?.classList.add("hidden");
     }
   }, 200);
 };
 
-/* ====== ROUTER (HASH + QUERY) ====== */
+/* ====== ROUTER (SEKARANG ASYNC) ====== */
 function parseHash() {
 	const h = location.hash || "#/";
 	const parts = h.replace(/^#\/?/, "").split("/");
@@ -588,17 +560,21 @@ function parseHash() {
 	};
 }
 
-function loadFromURL(initial = false) {
+// loadFromURL (SEKARANG ASYNC)
+async function loadFromURL(initial = false) {
   const { route, param } = parseHash();
   const q = getQueryParam("q") || "";
+
   if (route === "artikel" && param) {
-    openArticleBySlug(param);
+    await openArticleBySlug(param); // Tunggu artikel selesai dimuat
     return;
   }
   if (route === "help") {
     openHelp();
     return;
   }
+
+  // Jika bukan halaman artikel, pastikan kembali ke beranda
   articlePage?.classList.remove("active");
   articlePage?.classList.add("hidden");
   helpPage?.classList.add('hidden');
@@ -606,13 +582,13 @@ function loadFromURL(initial = false) {
   showArticleKebab(false);
   stopAllIframes();
   if (articleContent) { articleContent.innerHTML = ""; articleContent.className = ""; }
+
 	if (q) {
+        // Jika ada query 'q', jalankan pencarian penuh
 		if (searchInput) searchInput.value = q;
-		fullMode = true;
-		currentPage = 1;
-		currentResults = getMatches(q);
-		renderResultsBox(currentResults, q);
+        await runFull(); // Tunggu hasil pencarian
   } else {
+    // Jika tidak ada 'q', pastikan tampilan beranda bersih
     resultsBox?.classList.add("hidden");
     fullMode = false;
     if (initial) {
@@ -621,16 +597,13 @@ function loadFromURL(initial = false) {
     } else {
       const currentSearchValue = searchInput ? searchInput.value : "";
       if (currentSearchValue.trim()) {
-        onType(); 
+        await onType(); // Panggil onType (async)
       } else {
         closePanel(); 
       }
     }
   }
 }
-
-window.addEventListener("hashchange", () => loadFromURL(false));
-window.addEventListener("popstate", () => loadFromURL(false));
 
 /* ====== SIDEBAR + SHEET ====== */
 function closeSidebar() {
@@ -656,10 +629,10 @@ $$('#sidebar .side-item').forEach(el => {
 		const act = el.dataset.action;
 		sidebar.classList.remove('active');
 		overlay.style.display = 'none';
-    if (act === 'home') {
-        e.preventDefault();
-        goHome();
-    }
+        if (act === 'home') {
+            e.preventDefault();
+            goHome();
+        }
 		if (act === 'settings') {
 			e.preventDefault();
 			openSettingsSheet();
@@ -715,30 +688,29 @@ function initSettings() {
 	});
 }
 
-/* ====== KATEGORI ====== */
-function getAllCategories() {
-	const map = new Map();
-	articles.forEach(a => {
-		(a.categories || []).forEach(k => {
-			const key = (k || "").trim();
-			if (!key) return;
-			map.set(key, (map.get(key) || 0) + 1);
-		});
-	});
-	return Array.from(map.entries())
-		.sort((a, b) => a[0].localeCompare(b[0]))
-		.map(([name, count]) => ({
-			name,
-			count
-		}));
+/* ====== KATEGORI (SEKARANG ASYNC) ====== */
+async function getAllCategories() {
+    // Kategori sekarang diambil dari Supabase
+    // Ini membutuhkan fungsi RPC di Supabase:
+    const { data, error } = await supabase.rpc('get_all_categories');
+    if (error) {
+        console.error("Gagal memuat kategori:", error);
+        return [];
+    }
+	return data;
 }
 
-function renderCategoryList(filterText = "") {
+// renderCategoryList (SEKARANG ASYNC)
+async function renderCategoryList(filterText = "") {
 	const listEl = document.getElementById('categoryList');
 	if (!listEl) return;
+    listEl.innerHTML = '<div class="result-desc" style="padding:12px; text-align:center;">Memuat...</div>';
+    
 	const q = (filterText || "").toLowerCase().trim();
-	const cats = getAllCategories().filter(c => c.name.toLowerCase().includes(q));
-	listEl.innerHTML = "";
+    const allCats = await getAllCategories();
+	const cats = allCats.filter(c => c.name.toLowerCase().includes(q));
+	
+    listEl.innerHTML = ""; // Bersihkan 'Memuat...'
 	cats.forEach(c => {
 		const btn = document.createElement('button');
 		btn.className = 'category-item';
@@ -748,10 +720,16 @@ function renderCategoryList(filterText = "") {
       <span class="category-name">${c.name}</span>
       <span class="category-count">${c.count}</span>
     `;
-		btn.addEventListener('click', () => {
+		btn.addEventListener('click', async () => {
 			const categoryName = c.name;
-			const list = articles.filter(a => (a.categories || []).some(x => (x || "").toLowerCase() === categoryName.toLowerCase()));
-			currentResults = list;
+            
+            // Lakukan pencarian berdasarkan kategori (server-side)
+            const { data } = await supabase
+                .from('articles')
+                .select('*')
+                .contains('categories', [categoryName]); // Cari di array
+                
+			currentResults = data || [];
 			currentPage = 1;
 			fullMode = true;
 			closePanel();
@@ -781,7 +759,7 @@ function toggleCategoryModal(show) {
 		const inp = document.getElementById('categorySearchInput');
 		if (inp) {
 			inp.value = "";
-			renderCategoryList("");
+			renderCategoryList(""); // Panggil render async
 			setTimeout(() => inp.focus(), 50);
 		}
 	}
@@ -789,10 +767,10 @@ function toggleCategoryModal(show) {
 
 (function bindCategoryUI() {
 	const closeBtn = document.getElementById('categoryClose');
-  const filterBtn = document.getElementById('filterBtn');
+    const filterBtn = document.getElementById('filterBtn');
 	const modal = document.getElementById('categoryModal');
 	const searchIn = document.getElementById('categorySearchInput');
-  if (filterBtn) filterBtn.addEventListener('click', () => toggleCategoryModal(true));
+    if (filterBtn) filterBtn.addEventListener('click', () => toggleCategoryModal(true));
 	if (closeBtn) closeBtn.addEventListener('click', () => toggleCategoryModal(false));
 	if (modal) {
 		modal.addEventListener('click', (e) => {
@@ -800,19 +778,23 @@ function toggleCategoryModal(show) {
 		});
 	}
 	if (searchIn) {
-		searchIn.addEventListener('input', (e) => renderCategoryList(e.target.value));
+        // Debounce pencarian kategori agar tidak terlalu sering query
+		searchIn.addEventListener('input', debounce((e) => {
+            renderCategoryList(e.target.value);
+        }, 300));
 	}
 })();
 
-/* ====== INIT ====== */
+/* ====== INIT (SEKARANG ASYNC) ====== */
 document.addEventListener('DOMContentLoaded', () => {
 	const searchIcon = document.getElementById("searchIcon");
 	const clearBtn = document.getElementById("clearBtn");
-  const loadMoreBtn = document.getElementById("loadMoreBtn");
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
 	let typingTimer;
 	const doneTypingDelay = 400;
 
-	const handleSearchInput = debounce((value) => {
+    // handleSearchInput (SEKARANG ASYNC)
+	const handleSearchInput = debounce(async (value) => {
 	  if (fullMode) {
 		fullMode = false;
 		resultsBox?.classList.add("hidden");
@@ -823,20 +805,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		closePanel();
 		return;
 	  }
-	  const suggestions = getSuggest(val);
+      // BERTANYA KE SUPABASE
+	  const suggestions = await getSuggest(val);
 	  renderSuggest(suggestions, val);
 	  openPanel();
 	}, 300);
 
-	function onType() {
-	  handleSearchInput(searchInput.value);
+	async function onType() {
+	  await handleSearchInput(searchInput.value);
 	}
-	// --- Listener 1: Input (Gabungan) ---
+	
 	searchInput?.addEventListener("input", () => {
-	  // 1. Panggil onType untuk sugesti
-	  onType();
+	  onType(); // Panggil onType (async)
 	  
-	  // 2. Logika untuk loading icon & clear button
 	  clearBtn.classList.toggle("hidden", searchInput.value.trim() === "");
 	  searchIcon.classList.add("loading");
 	  clearTimeout(typingTimer);
@@ -845,46 +826,38 @@ document.addEventListener('DOMContentLoaded', () => {
 	  }, doneTypingDelay);
 	});
 
-	// --- Listener 2: Keydown (Enter) ---
 	searchInput?.addEventListener("keydown", (e) => {
 	  if (e.key === "Enter") {
 		e.preventDefault();
-		runFull();
+		runFull(); // Panggil runFull (async)
 	  }
 	});
 
-    // --- Listener 3: Tombol Clear (X) ---
-  clearBtn?.addEventListener("click", goHome);
+    clearBtn?.addEventListener("click", goHome);
 
-    // --- Listener 4: Fokus (BARU) ---
-  searchInput?.addEventListener("focus", () => {
-    // 1. Tampilkan overlay (seperti sebelumnya)
-    showSearchOverlay(); 
+    searchInput?.addEventListener("focus", () => {
+        showSearchOverlay(); 
+        if (searchInput.value.trim() !== "") {
+            onType(); // Panggil onType (async)
+        }
+    });
+  
+    initSettings();
+    helpMenu?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openHelp();
+    });
+  
+    backFromHelp?.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeHelpToHome();
+    });
+  
+    // HAPUS LISTENER TOMBOL "Muat Lebih Banyak" KARENA LOGIKA ANDA
+    // loadMoreBtn?.addEventListener('click', () => { ... });
     
-    // 2. TAMBAHAN: Jika sudah ada teks, panggil onType() untuk memunculkan suggest
-    if (searchInput.value.trim() !== "") {
-      onType();
-    }
-  });
-  
-  initSettings(); //
-  helpMenu?.addEventListener('click', (e) => { //
-    e.preventDefault();
-    openHelp();
-  });
-  
-  backFromHelp?.addEventListener('click', (e) => { //
-    e.preventDefault();
-    closeHelpToHome();
-  });
-  
-  loadMoreBtn?.addEventListener('click', () => {
-    const container = document.getElementById('latestArticlesList');
-    if (!container) return;
-    const remainingArticles = articlesFromNewestDate.slice(initialArticleCount);
-    appendArticlesToHomepage(remainingArticles, container);
-    loadMoreBtn.classList.add('hidden');
-  });
+    // Panggil fungsi pemuat utama (async)
+    loadInitialData();
 });
 
 function appendArticlesToHomepage(articleList, container) {
@@ -892,15 +865,10 @@ function appendArticlesToHomepage(articleList, container) {
     const card = document.createElement("div");
     card.className = "latest-card-list"; 
 
-    // Ambil youtube_url dari Supabase, BUKAN youtubeUrl
     const thumb = a.youtube_url ? getYouTubeThumb(a.youtube_url) : (a.image || "");
-
     let dateString = getArticleDateString(a);
-    if (dateString === "no-date") {
-        dateString = "Baru";
-    }
+    if (dateString === "no-date") dateString = "Baru";
 
-    // Struktur HTML (List View)
     card.innerHTML = `
       <a href="#" class="thumb-wrapper-list" onclick="openArticleBySlug('${a.slug}'); return false;">
         <img src="${thumb || 'https://via.placeholder.com/320x180?text=%20'}" alt="${a.title}" loading="lazy">
@@ -928,161 +896,143 @@ function appendArticlesToHomepage(articleList, container) {
   });
 }
 
+// renderLatestArticles (Sesuai file asli Anda)
 function renderLatestArticles() {
   const container = document.getElementById('latestArticlesList');
   const loadMoreBtn = document.getElementById("loadMoreBtn"); 
   if (!container || !loadMoreBtn) return; 
-  container.innerHTML = ""; // Bersihkan daftar
-  const latest = articlesFromNewestDate; 
-    appendArticlesToHomepage(latest, container);
-  loadMoreBtn.classList.add('hidden'); 
-}
 
-function parseClientDate(dateString) {
-  if (typeof dateString !== 'string') {
-    return new Date(0); // Tanggal 'epoch' jika data buruk
-  }
-  const parts = dateString.split('/');
-  if (parts.length !== 3) {
-    return new Date(0); // Tanggal 'epoch' jika format salah
-  }
-  // Format: DD/MM/YYYY -> new Date(YYYY, MM-1, DD)
-  return new Date(parts[2], parts[1] - 1, parts[0]);
+  container.innerHTML = ""; // Bersihkan daftar
+  
+  // Ambil dari cache 'articlesFromNewestDate'
+  const latest = articlesFromNewestDate; 
+  
+  appendArticlesToHomepage(latest, container);
+  
+  // Sembunyikan tombol "Muat Lebih Banyak" (sesuai logika asli Anda)
+  loadMoreBtn.classList.add('hidden'); 
 }
 
 // 
 // ==========================================================
-// GANTI FUNGSI loadDatabase LAMA ANDA DENGAN INI
+// FUNGSI PEMUAT DATA UTAMA (BARU)
 // ==========================================================
 //
-
-// Helper untuk mengubah DD/MM/YYYY menjadi objek Date
 function parseClientDate(dateString) {
   if (typeof dateString !== 'string') {
-    return new Date(0); // Tanggal 'epoch' jika data buruk
+    return new Date(0);
   }
   const parts = dateString.split('/');
   if (parts.length !== 3) {
-    return new Date(0); // Tanggal 'epoch' jika format salah
+    return new Date(0);
   }
-  // Format: DD/MM/YYYY -> new Date(YYYY, MM-1, DD)
   return new Date(parts[2], parts[1] - 1, parts[0]);
 }
 
-async function loadDatabase() {
-  try {
-    // Ambil data dari Supabase
-    const { data, error } = await supabase
-      .from('articles') 
-      .select('*');     
-
-    if (error) {
-      throw error;
-    }
-
-    // --- PERBAIKAN PENGURUTAN (DENGAN TIE-BREAKER) ---
-    data.sort((a, b) => {
-      const dateA = parseClientDate(a.date);
-      const dateB = parseClientDate(b.date);
-
-      const dateDiff = dateB - dateA;
-
-      if (dateDiff !== 0) {
-        // 1. Urutkan berdasarkan Tanggal (terbaru dulu)
-        return dateDiff;
-      } else {
-        // 2. JIKA TANGGAL SAMA: Urutkan berdasarkan ID (terkecil dulu)
-        // Ini akan menjaga urutan logis seperti di database
-        return a.id - b.id;
-      }
-    });
+// Ini adalah FUNGSI UTAMA yang menggantikan loadDatabase()
+async function loadInitialData() {
+    const container = document.getElementById('latestArticlesList');
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
     
-    // Masukkan data yang SUDAH TERURUT RAPI ke array 'articles'
-    articles = data;
-    // --- PERBAIKAN SELESAI ---
-
-
-    // Logika untuk "Artikel Terbaru" (mengambil artikel dari tanggal terbaru)
-    // Kode ini sekarang akan bekerja dengan benar
-    if (articles && articles.length > 0) {
-      const newestDate = getArticleDateString(articles[0]);
-      articlesFromNewestDate = articles.filter(a => getArticleDateString(a) === newestDate);
-    } else {
-      articlesFromNewestDate = [];
+    if (container) {
+        container.innerHTML = '<div class="result-desc" style="padding:12px; text-align:center;">Memuat artikel terbaru...</div>';
     }
-    
-    // Sisa fungsi Anda akan berjalan normal
-    renderLatestArticles();
-    loadFromURL(true);
+    if (loadMoreBtn) loadMoreBtn.classList.add('hidden'); // Sembunyikan
 
-  } catch (error) {
-    console.error("Gagal memuat database:", error.message);
-    homepage.innerHTML = `<div class="empty" style="padding:20px; text-align:center; color: var(--fg-muted);">Gagal memuat artikel dari database. Error: ${error.message}. Pastikan RLS diatur dengan benar.</div>`;
-  }
+    try {
+        // LANGKAH 1: Ambil HANYA tanggal terbaru
+        // (Ini sangat cepat)
+        const { data: newest, error: dateError } = await supabase
+            .from('articles')
+            .select('date')
+            .order('date', { ascending: false }) // Urutkan berdasarkan 'date'
+            .limit(1)
+            .single();
+
+        if (dateError) throw dateError;
+        if (!newest) {
+             if (container) container.innerHTML = '<div class="empty">Belum ada artikel.</div>';
+             return;
+        }
+
+        const newestDate = newest.date;
+
+        // LANGKAH 2: Ambil SEMUA artikel HANYA dari tanggal terbaru itu
+        // (Ini juga cepat)
+        const { data, error } = await supabase
+            .from('articles')
+            .select('*')
+            .eq('date', newestDate)
+            .order('id', { ascending: true }); // Urutkan berdasarkan ID (seperti file asli Anda)
+
+        if (error) throw error;
+
+        // Simpan hasil ini ke cache beranda
+        articlesFromNewestDate = data; 
+        
+        // Panggil render beranda (sesuai logika asli Anda)
+        renderLatestArticles();
+        
+        // Cek URL (hash/query) SETELAH beranda dimuat
+        await loadFromURL(true);
+
+    } catch (error) {
+        console.error("Gagal memuat database:", error.message);
+        if (container) container.innerHTML = `<div class="empty" style="padding:20px; text-align:center; color: var(--fg-muted);">Gagal memuat artikel. Coba refresh.</div>`;
+    }
 }
 
-// Panggil fungsi untuk memuat database
-loadDatabase();
+// Panggil fungsi inisialisasi
+loadInitialData();
 
+// --- (Sisa event listener untuk menu '...' di beranda) ---
 document.addEventListener('click', (e) => {
-  // Cek apakah yang diklik adalah tombol titik tiga
   const dotsBtn = e.target.closest('.dots-btn-yt');
   if (dotsBtn) {
     e.preventDefault();
-    const dropdown = dotsBtn.nextElementSibling; // Ambil .dropdown-yt
-    
-    // Tutup semua dropdown lain dulu
+    const dropdown = dotsBtn.nextElementSibling;
     $$('.dropdown-yt').forEach(d => {
       if (d !== dropdown) d.style.display = 'none';
     });
-
-    // Toggle (buka/tutup) dropdown yang ini
     dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
-    return; // Berhenti agar klik luar tidak langsung menutupnya
+    return;
   }
 
-  // Jika klik di luar dropdown, tutup semua
   if (!e.target.closest('.dots-menu-yt')) {
     $$('.dropdown-yt').forEach(d => d.style.display = 'none');
   }
   
-  // Cek apakah yang diklik adalah item menu di dalam .dots-menu-yt
   const menuItem = e.target.closest('.dots-menu-yt .menu-item');
   if (menuItem) {
     e.preventDefault();
     const act = menuItem.dataset.act;
     const slug = menuItem.dataset.slug;
     
-    // Berhenti jika tidak ada slug (pengaman)
     if (!slug) return; 
 
-    const article = articles.find(a => a.slug === slug);
+    // Ambil dari cache 'articlesFromNewestDate'
+    const article = articlesFromNewestDate.find(a => a.slug === slug);
     const url = `${location.origin}${location.pathname}#/artikel/${slug}`;
     
     if (act === 'copy') {
       try {
         navigator.clipboard.writeText(url);
         showToast('Tautan berhasil disalin');
-      } catch (err) {
-        showToast('Gagal menyalin tautan');
-      }
+      } catch (err) { showToast('Gagal menyalin tautan'); }
     }
     
     if (act === 'share') {
       if (navigator.share && article) {
         navigator.share({
           title: article.title,
-          text: article.description.split('\n')[0], // Ambil baris pertama deskripsi
+          text: article.description.split('\n')[0],
           url: url
         }).catch(err => console.error('Gagal bagikan:', err));
       } else {
-        // Fallback: Salin link jika share gagal atau tidak didukung
         try {
           navigator.clipboard.writeText(url);
           showToast('Tautan disalin (Share tidak didukung)');
-        } catch (err) {
-          showToast('Gagal membagikan');
-        }
+        } catch (err) { showToast('Gagal membagikan'); }
       }
     }
 
